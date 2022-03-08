@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="EnterpriseCourseWork">
+	<jta-data-source>java:/MySql</jta-data-source>
+	<class>models.Address</class>
+	<class>models.Branch</class>
+	<class>models.Client</class>
+	<class>models.Collection</class>
+	<class>models.Crate</class>
+	<class>models.Cratehistory</class>
+	<class>models.Customerusage</class>
+	<class>models.Delivery</class>
+	<class>models.Department</class>
+	<class>models.Employee</class>
+	<class>models.Invoice</class>
+	<class>models.Itemslist</class>
+	<class>models.Order</class>
+	<class>models.Payment</class>
+	<class>models.Warehouse</class>
+	</persistence-unit>
+</persistence>
