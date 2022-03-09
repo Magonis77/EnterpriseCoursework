@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.CustomerDTO;
-
 import models.Client;
 
 /**
@@ -81,6 +80,41 @@ public class CustomerServlet extends HttpServlet {
 
 			tableStr += " <br/><strong>Client address added! </strong>";
 		}
+		break;
+		case "login":
+		{
+			
+			String databaseUsername = "";
+			String databasePassword = "";
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			Client c = new Client();
+			List <Client> clientlist = crDTO.allClients();
+			int is = 1;
+			for(int i = 0; i < clientlist.size(); i++)
+			{
+				databaseUsername = String.valueOf(clientlist.get(i).getUsername());
+				databasePassword = String.valueOf(clientlist.get(i).getPassword());
+				if (username.equals(databaseUsername) && password.equals(databasePassword)) {
+					request.setAttribute("users", username);
+					response.sendRedirect("index.jsp");
+					is = 1;
+					break;
+			    }
+				else {
+					is = 0;
+				}
+			}
+
+			if (is == 0) {	
+
+				tableStr += "<br/><strong>Incorrect password!!</strong>";
+				tableStr += "</table>";
+				tableStr += "<a href=login.jsp>Try again!</a>";
+		    }
+			
+		}
+		break;
 		default:
 		break;
 		}

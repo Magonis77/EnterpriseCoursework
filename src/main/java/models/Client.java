@@ -2,8 +2,6 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,7 +24,11 @@ public class Client implements Serializable {
 
 	private String lastName;
 
+	private String password;
+
 	private int phoneNumber;
+
+	private String username;
 
 	//bi-directional many-to-many association to Address
 	@ManyToMany
@@ -54,7 +56,6 @@ public class Client implements Serializable {
 	private List<Payment> payments;
 
 	public Client() {
-		this.addresses = new ArrayList();
 	}
 
 	public int getId() {
@@ -89,12 +90,28 @@ public class Client implements Serializable {
 		this.lastName = lastName;
 	}
 
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public int getPhoneNumber() {
 		return this.phoneNumber;
 	}
 
 	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public List<Address> getAddresses() {

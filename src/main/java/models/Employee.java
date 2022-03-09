@@ -21,6 +21,10 @@ public class Employee implements Serializable {
 
 	private String lastname;
 
+	private String password;
+
+	private String username;
+
 	//bi-directional many-to-one association to Department
 	@ManyToOne
 	@JoinColumn(name="DepartmentID")
@@ -51,6 +55,22 @@ public class Employee implements Serializable {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Department getDepartment() {
