@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import models.Address;
 import models.Client;
+import models.Employee;
 
 /**
  * Session Bean implementation class CustomerDTO
@@ -63,5 +64,20 @@ public class CustomerDTO {
 		
 		em.persist(a);
 	}
+    public List<Employee> allEmployee()
+    {
+    	List<Employee> listEmployee = em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
+    	
+    	//List queryResults = em.createQuery("SELECT c FROM Client c").getResultList();
+    	//List<Client> listClients = new ArrayList<Client>();
+    	//for(int i = 0; i < queryResults.size(); i++)
+    	//{
+    	//	Client c = new Client();
+    	//	u = (Client)queryResults.get(i);
+    	//	listClients.add(u);
+    	//}
+    	
+    	return listEmployee;
+    }
 
 }

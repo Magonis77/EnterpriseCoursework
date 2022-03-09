@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.CustomerDTO;
+
 import models.Client;
+import models.Employee;
 
 /**
  * Servlet implementation class CustomerServlet
@@ -24,6 +26,7 @@ public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private CustomerDTO crDTO;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -81,7 +84,7 @@ public class CustomerServlet extends HttpServlet {
 			tableStr += " <br/><strong>Client address added! </strong>";
 		}
 		break;
-		case "login":
+		case "logincust":
 		{
 			
 			String databaseUsername = "";
@@ -115,6 +118,39 @@ public class CustomerServlet extends HttpServlet {
 			
 		}
 		break;
+		case "loginEmployee":
+		{
+			
+			String databaseUsername = "";
+			String databasePassword = "";
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			Employee e = new Employee();
+			List <Employee> Employeelist = crDTO.allEmployee();
+			int is = 1;
+			for(int i = 0; i < Employeelist.size(); i++)
+			{
+				databaseUsername = String.valueOf(Employeelist.get(i).getUsername());
+				databasePassword = String.valueOf(Employeelist.get(i).getPassword());
+				if (username.equals(databaseUsername) && password.equals(databasePassword)) {
+					request.setAttribute("users", username);
+					response.sendRedirect("index.jsp");
+					is = 1;
+					break;
+			    }
+				else {
+					is = 0;
+				}
+			}
+
+			if (is == 0) {	
+
+				tableStr += "<br/><strong>Incorrect password!!</strong>";
+				tableStr += "</table>";
+				tableStr += "<a href=login.jsp>Try again!</a>";
+		    }
+			
+		}
 		default:
 		break;
 		}

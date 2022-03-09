@@ -22,7 +22,7 @@ Login:
 	<%
 		if (request.getParameter("username") != null)
 		{
-			RequestDispatcher rd = request.getRequestDispatcher("CustomerServlet?action=login");
+			RequestDispatcher rd = request.getRequestDispatcher("CustomerServlet?action=logincust");
 			request.setAttribute("username", request.getParameter("username"));
 			request.setAttribute("password", request.getParameter("password"));
 			

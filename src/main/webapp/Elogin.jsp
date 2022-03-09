@@ -22,7 +22,7 @@ Employee Login:
 	<%
 		if (request.getParameter("username") != null)
 		{
-			RequestDispatcher rd = request.getRequestDispatcher("EmployeeServlet?action=login");
+			RequestDispatcher rd = request.getRequestDispatcher("CustomerServlet?action=loginEmployee");
 			request.setAttribute("username", request.getParameter("username"));
 			request.setAttribute("password", request.getParameter("password"));
 			
