@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +36,7 @@ public class Itemslist implements Serializable {
 	private List<Crate> crates;
 
 	public Itemslist() {
+		this.crates = new ArrayList<Crate>();
 	}
 
 	public int getId() {

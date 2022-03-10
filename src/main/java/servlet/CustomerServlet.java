@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import dao.CustomerDTO;
 
 import models.Client;
+import models.Crate;
 import models.Employee;
 
 /**
@@ -51,8 +53,10 @@ public class CustomerServlet extends HttpServlet {
 			String lastname = request.getParameter("lastName");
 		    String email = request.getParameter("email");
 		    String phone = request.getParameter("phonenumber");
+		    String Username = firstname + lastname;
+		    String Password = request.getParameter("Password");
 		    int phonenumber = Integer.parseInt(phone);
-			crDTO.insertClient(firstname,lastname,email,phonenumber);
+			crDTO.insertClient(firstname,lastname,email,phonenumber,Username,Password);
 			
 			tableStr += "<a href='CustomerServlet?action=getusers'>Insert Customers Address</a><br/>";
 		}
@@ -151,6 +155,44 @@ public class CustomerServlet extends HttpServlet {
 		    }
 			
 		}
+		break;
+		case "CreateOrder":
+		{
+			String Client = request.getParameter("Client");
+			int ClientID = Integer.parseInt(Client);
+		    String ItemType = request.getParameter("ItemType");
+		    String Status = "In Process";
+		    String CollectionDate = request.getParameter("CollectionDate");
+		    String Shelf = "Not Assigned Yet";
+		    String StatusCrate = "Created";
+		    
+			crDTO.CreateOrder(ClientID,ItemType,Status,CollectionDate,Shelf,StatusCrate);
+			
+			List<Crate> cratelist = crDTO.allCrates();
+			HttpSession session = request.getSession();
+			session.setAttribute("cratelist", cratelist);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("AddItems.jsp");
+			dispatcher.forward(request, response);
+		}
+		break;
+		case "AddItem" :
+		{
+			String Item = request.getParameter("Item");
+			String cbxCrate = request.getParameter("CrateID");
+			int idCrate = Integer.parseInt(cbxCrate);
+			
+			crDTO.AddItem(Item, idCrate);
+			tableStr += "<br/><strong>Item added</strong>";
+			List<Crate> cratelist = crDTO.allCrates();
+			HttpSession session = request.getSession();
+			session.setAttribute("cratelist", cratelist);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("AddItems.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		break;
 		default:
 		break;
 		}

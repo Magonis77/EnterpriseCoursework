@@ -11,7 +11,8 @@
          First Name: <input type = "text" name = "firstName"></br>
          Last Name: <input type = "text" name = "lastName"></br>
          Email: <input type = "text" name = "email"></br>
-         Phone Number: <input type = "text" name = "phonenumber">
+         Phone Number: <input type = "text" name = "phonenumber"></br>
+         Password: <input type = "password" name = "Password">
          <br />
          <input type = "submit" value = "Add" />
       </form>
@@ -20,11 +21,11 @@
       	if (request.getParameter("firstName") != null)
       	{
       		RequestDispatcher rd = request.getRequestDispatcher("CustomerServlet?action=insertUser");
-      		request.setAttribute("action", "insertBook");
       		request.setAttribute("firstName", request.getParameter("firstName"));
       		request.setAttribute("lastName", request.getParameter("lastName"));
       		request.setAttribute("email", request.getParameter("email"));
       		request.setAttribute("phonenumber", request.getParameter("phonenumber"));
+      		request.setAttribute("Password", request.getParameter("Password"));
       		rd.forward(request, response);
       	}
       %>

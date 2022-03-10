@@ -45,7 +45,7 @@ public class Address implements Serializable {
 	private List<Warehouse> warehouses;
 
 	public Address() {
-		this.clients = new ArrayList();
+		this.clients = new ArrayList<Client>();
 	}
 
 	public int getId() {

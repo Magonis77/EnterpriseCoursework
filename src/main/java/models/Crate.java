@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +20,8 @@ public class Crate implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	private int clientID;
+
 	@Column(name="`Item Type`")
 	private String item_Type;
 
@@ -28,11 +32,6 @@ public class Crate implements Serializable {
 	//bi-directional many-to-many association to Collection
 	@ManyToMany(mappedBy="crates")
 	private List<Collection> collections;
-
-	//bi-directional many-to-one association to Warehouse
-	@ManyToOne
-	@JoinColumn(name="WarehouseID")
-	private Warehouse warehouse;
 
 	//bi-directional many-to-one association to Cratehistory
 	@OneToMany(mappedBy="crate")
@@ -46,7 +45,12 @@ public class Crate implements Serializable {
 	@ManyToMany(mappedBy="crates")
 	private List<Itemslist> itemslists;
 
+	//bi-directional many-to-many association to Warehouse
+	@ManyToMany(mappedBy="crates")
+	private List<Warehouse> warehouses;
+
 	public Crate() {
+	this.itemslists = new ArrayList<Itemslist>();
 	}
 
 	public int getId() {
@@ -55,6 +59,14 @@ public class Crate implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getClientID() {
+		return this.clientID;
+	}
+
+	public void setClientID(int clientID) {
+		this.clientID = clientID;
 	}
 
 	public String getItem_Type() {
@@ -87,14 +99,6 @@ public class Crate implements Serializable {
 
 	public void setCollections(List<Collection> collections) {
 		this.collections = collections;
-	}
-
-	public Warehouse getWarehouse() {
-		return this.warehouse;
-	}
-
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
 	}
 
 	public List<Cratehistory> getCratehistories() {
@@ -133,6 +137,14 @@ public class Crate implements Serializable {
 
 	public void setItemslists(List<Itemslist> itemslists) {
 		this.itemslists = itemslists;
+	}
+
+	public List<Warehouse> getWarehouses() {
+		return this.warehouses;
+	}
+
+	public void setWarehouses(List<Warehouse> warehouses) {
+		this.warehouses = warehouses;
 	}
 
 }

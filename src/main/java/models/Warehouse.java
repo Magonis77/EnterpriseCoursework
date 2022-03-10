@@ -20,14 +20,23 @@ public class Warehouse implements Serializable {
 
 	private int capacity;
 
-	//bi-directional many-to-one association to Crate
-	@OneToMany(mappedBy="warehouse")
-	private List<Crate> crates;
-
 	//bi-directional many-to-one association to Address
 	@ManyToOne
 	@JoinColumn(name="AddressID")
 	private Address address;
+
+	//bi-directional many-to-many association to Crate
+	@ManyToMany
+	@JoinTable(
+		name="warehouse_crate"
+		, joinColumns={
+			@JoinColumn(name="Warehouse_ID")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="Crate_ID")
+			}
+		)
+	private List<Crate> crates;
 
 	public Warehouse() {
 	}
@@ -48,34 +57,20 @@ public class Warehouse implements Serializable {
 		this.capacity = capacity;
 	}
 
-	public List<Crate> getCrates() {
-		return this.crates;
-	}
-
-	public void setCrates(List<Crate> crates) {
-		this.crates = crates;
-	}
-
-	public Crate addCrate(Crate crate) {
-		getCrates().add(crate);
-		crate.setWarehouse(this);
-
-		return crate;
-	}
-
-	public Crate removeCrate(Crate crate) {
-		getCrates().remove(crate);
-		crate.setWarehouse(null);
-
-		return crate;
-	}
-
 	public Address getAddress() {
 		return this.address;
 	}
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public List<Crate> getCrates() {
+		return this.crates;
+	}
+
+	public void setCrates(List<Crate> crates) {
+		this.crates = crates;
 	}
 
 }

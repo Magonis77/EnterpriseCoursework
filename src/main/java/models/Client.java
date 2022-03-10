@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,6 +58,7 @@ public class Client implements Serializable {
 	private List<Payment> payments;
 
 	public Client() {
+		this.addresses = new ArrayList<Address>();
 	}
 
 	public int getId() {

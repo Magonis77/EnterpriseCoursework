@@ -20,6 +20,10 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int number;
 
+	private int clientID;
+
+	private String collectionDate;
+
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
@@ -38,6 +42,22 @@ public class Order implements Serializable {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public int getClientID() {
+		return this.clientID;
+	}
+
+	public void setClientID(int clientID) {
+		this.clientID = clientID;
+	}
+
+	public String getCollectionDate() {
+		return this.collectionDate;
+	}
+
+	public void setCollectionDate(String collectionDate) {
+		this.collectionDate = collectionDate;
 	}
 
 	public Date getDate() {
