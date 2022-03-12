@@ -14,7 +14,9 @@ import models.Address;
 import models.Client;
 import models.Crate;
 import models.Cratehistory;
+import models.Customerusage;
 import models.Employee;
+import models.Invoice;
 import models.Itemslist;
 import models.Order;
 
@@ -90,7 +92,6 @@ public class CustomerDTO {
 		o.setClientID(clientID);
 		o.setStatus(status);
 		o.setCollectionDate(collectionDate);
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		o.setDate(date);
 		
@@ -110,6 +111,15 @@ public class CustomerDTO {
 		
 		em.persist(ch);
 		
+		Customerusage cu = new Customerusage();
+		
+		cu.setTimes_collection_made(0);
+		cu.setTimes_delivery_made(0);
+		
+		Client cl = em.find(Client.class, clientID);
+		cu.setClient(cl);
+		
+		em.persist(cu);
 	}
 	public List<Crate> allCrates() {
 		List<Crate> listCrate = em.createNamedQuery("Crate.findAll", Crate.class).getResultList();
@@ -128,6 +138,29 @@ public class CustomerDTO {
 		
 		em.persist(il);
 		
+		
+	}
+	public List<Customerusage> allCustUsage() {
+		
+		List<Customerusage> custusagelist = em.createNamedQuery("Customerusage.findAll", Customerusage.class).getResultList();
+		return custusagelist;
+	}
+	public Client getCustomerUsageByClientID(int clientID) {
+		Client queryResult = em.createNamedQuery("Client.findCustUsagebyID", Client.class)
+				.setParameter("id", clientID)
+				.getSingleResult();
+return queryResult;
+	}
+	public void CreateInvoice(int clientID, int ammount) {
+		
+		Invoice In = new Invoice();
+		Client cl = em.find(Client.class, clientID);
+		In.setClient(cl);
+		In.setAmount(ammount);
+		Date date = new Date();
+		In.setDate(date);
+		em.persist(In);
+	
 		
 	}
 }

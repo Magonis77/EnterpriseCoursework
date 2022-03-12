@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.CustomerDTO;
-
 import models.Client;
 import models.Crate;
+import models.Customerusage;
 import models.Employee;
 
 /**
@@ -191,6 +191,54 @@ public class CustomerServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddItems.jsp");
 			dispatcher.forward(request, response);
 			
+		}
+		break;
+		case "GetUsersCustUsage" :
+		{
+			List<Client> clientlist = crDTO.allClients();
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("clientlist", clientlist);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("Custusage.jsp");
+			dispatcher.forward(request, response);
+		}
+		case "CustUsagelist":
+		{
+			String idstring = request.getParameter("ClientID");
+			
+			try {
+				int ClientID = Integer.parseInt(idstring);
+				
+				Client aut = crDTO.getCustomerUsageByClientID(ClientID);
+				
+				tableStr += "<table border='1'>";
+				tableStr += "<tr><td>ID</td><td>Times Collection Made</td><td>Times Delivery Made</td></tr>";
+				
+				for(int i =0; i < aut.getCustomerusages().size(); i++)
+				{
+					tableStr += "<tr><td>" + String.valueOf(aut.getCustomerusages().get(i).getId()) + "</td>" + "<td>"
+							+ aut.getCustomerusages().get(i).getTimes_collection_made()+ "</td>" + "<td>" + 
+							aut.getCustomerusages().get(i).getTimes_delivery_made() + "</td></tr>";
+				}
+				
+				tableStr += "</table>";
+			}
+			catch(Exception e)
+			{
+				tableStr += e.toString();
+			}
+			
+		}
+		break;
+		case "CreateInvoice":
+		{
+			String Client = request.getParameter("clientID");
+		    int clientID = Integer.parseInt(Client);
+			String Amount = request.getParameter("Amount");
+		    int Ammount = Integer.parseInt(Amount);
+			crDTO.CreateInvoice(clientID,Ammount);
+
 		}
 		break;
 		default:

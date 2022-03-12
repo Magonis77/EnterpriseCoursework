@@ -11,8 +11,16 @@ import java.util.List;
  * The persistent class for the client database table.
  * 
  */
+
+//findCustUsagebyID
 @Entity
-@NamedQuery(name="Client.findAll", query="SELECT c FROM Client c")
+@NamedQueries(
+		{
+@NamedQuery(name="Client.findAll", query="SELECT c FROM Client c"),
+@NamedQuery(name="Client.findCustUsagebyID", query="Select c from Client c join fetch c.customerusages Where c.id=:id")
+
+		}
+		)
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -59,6 +67,7 @@ public class Client implements Serializable {
 
 	public Client() {
 		this.addresses = new ArrayList<Address>();
+		this.customerusages = new ArrayList<Customerusage>();
 	}
 
 	public int getId() {
