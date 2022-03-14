@@ -22,7 +22,11 @@ public class Delivery implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
+	private String frequency;
+
 	private String journey;
+
+	private String time;
 
 	//bi-directional many-to-many association to Crate
 	@ManyToMany
@@ -56,12 +60,28 @@ public class Delivery implements Serializable {
 		this.date = date;
 	}
 
+	public String getFrequency() {
+		return this.frequency;
+	}
+
+	public void setFrequency(String frequency) {
+		this.frequency = frequency;
+	}
+
 	public String getJourney() {
 		return this.journey;
 	}
 
 	public void setJourney(String journey) {
 		this.journey = journey;
+	}
+
+	public String getTime() {
+		return this.time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public List<Crate> getCrates() {

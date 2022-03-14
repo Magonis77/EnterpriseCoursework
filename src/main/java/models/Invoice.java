@@ -23,6 +23,8 @@ public class Invoice implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
+	private String status;
+
 	//bi-directional many-to-one association to Client
 	@ManyToOne
 	@JoinColumn(name="ClientID")
@@ -53,6 +55,14 @@ public class Invoice implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Client getClient() {

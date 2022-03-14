@@ -3,7 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     
-<%@ page import="models.Customerusage"%>
+<%@ page import="models.Client"%>
 <%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -22,12 +22,12 @@ if (request.getParameter("cbxClient") != null) {
 }	%>
 <%
 	@SuppressWarnings("unchecked")
-	List<Customerusage> clientlist = (List<Customerusage>) session.getAttribute("custusagelist");
+	List<Client> clientlist = (List<Client>) session.getAttribute("custusagelist");
 	
 	%>
 
 	<form action="Custusage.jsp" method = "post">
-         Select an author:&nbsp; <select name="cbxClient" style="width: 200px">
+         Select a Client:&nbsp; <select name="cbxClient" style="width: 200px">
 			<c:forEach items="${clientlist}" var="client">
 				<option value="${client.id}">${client.firstName}</option>
 			</c:forEach>

@@ -19,6 +19,7 @@ import models.Employee;
 import models.Invoice;
 import models.Itemslist;
 import models.Order;
+import models.Warehouse;
 
 /**
  * Session Bean implementation class CustomerDTO
@@ -85,7 +86,7 @@ public class CustomerDTO {
     }
     
 	public void CreateOrder(int clientID, String itemType, String status, String collectionDate, String shelf,
-			String statusCrate) {
+			String statusCrate, String Time) {
 		
 		Order o = new Order();
 		
@@ -145,12 +146,14 @@ public class CustomerDTO {
 		List<Customerusage> custusagelist = em.createNamedQuery("Customerusage.findAll", Customerusage.class).getResultList();
 		return custusagelist;
 	}
+	
 	public Client getCustomerUsageByClientID(int clientID) {
 		Client queryResult = em.createNamedQuery("Client.findCustUsagebyID", Client.class)
 				.setParameter("id", clientID)
 				.getSingleResult();
-return queryResult;
+		return queryResult;
 	}
+	
 	public void CreateInvoice(int clientID, int ammount) {
 		
 		Invoice In = new Invoice();
@@ -159,8 +162,38 @@ return queryResult;
 		In.setAmount(ammount);
 		Date date = new Date();
 		In.setDate(date);
+		In.setStatus("Not Payed");
 		em.persist(In);
 	
 		
 	}
+	public List<Invoice> allInvoices() {
+		List<Invoice> Invoicelist = em.createNamedQuery("Invoice.findAll", Invoice.class).getResultList();
+		return Invoicelist;
+	}
+	
+	public void AddPayment(int InvoiceID) {
+		
+		Invoice I = em.find(Invoice.class, InvoiceID);
+
+		I.setStatus("Payed");
+		em.persist(I);
+	}
+	public void AssignShelf(int crateID, int warehouseID, String shelf) {
+		
+		Crate c = em.find(Crate.class, crateID);
+		
+		Warehouse wh = em.find(Warehouse.class, warehouseID);
+		
+		c.setShelf(shelf);
+		
+		c.getWarehouses().add(wh);
+		
+		wh.getCrates().add(c);
+		em.persist(wh);
+		
+		em.persist(c);
+		
+	}
+
 }

@@ -11,16 +11,16 @@ import java.util.List;
  * The persistent class for the client database table.
  * 
  */
-
-//findCustUsagebyID
 @Entity
 @NamedQueries(
 		{
 @NamedQuery(name="Client.findAll", query="SELECT c FROM Client c"),
-@NamedQuery(name="Client.findCustUsagebyID", query="Select c from Client c join fetch c.customerusages Where c.id=:id")
+@NamedQuery(name="Client.findCustUsagebyID", query="Select c from Client c join fetch c.customerusages Where c.id=:id"),
+@NamedQuery(name="Client.findCustInvoicebyID", query="Select c from Client c join fetch c.invoices Where c.id=:id")
 
 		}
 		)
+
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -61,13 +61,10 @@ public class Client implements Serializable {
 	@OneToMany(mappedBy="client")
 	private List<Invoice> invoices;
 
-	//bi-directional many-to-one association to Payment
-	@OneToMany(mappedBy="client")
-	private List<Payment> payments;
-
 	public Client() {
 		this.addresses = new ArrayList<Address>();
 		this.customerusages = new ArrayList<Customerusage>();
+		this.invoices = new ArrayList<Invoice>();
 	}
 
 	public int getId() {
@@ -176,28 +173,6 @@ public class Client implements Serializable {
 		invoice.setClient(null);
 
 		return invoice;
-	}
-
-	public List<Payment> getPayments() {
-		return this.payments;
-	}
-
-	public void setPayments(List<Payment> payments) {
-		this.payments = payments;
-	}
-
-	public Payment addPayment(Payment payment) {
-		getPayments().add(payment);
-		payment.setClient(this);
-
-		return payment;
-	}
-
-	public Payment removePayment(Payment payment) {
-		getPayments().remove(payment);
-		payment.setClient(null);
-
-		return payment;
 	}
 
 }

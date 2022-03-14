@@ -50,7 +50,7 @@ public class Crate implements Serializable {
 	private List<Warehouse> warehouses;
 
 	public Crate() {
-	this.itemslists = new ArrayList<Itemslist>();
+		this.warehouses = new ArrayList<Warehouse>();
 	}
 
 	public int getId() {

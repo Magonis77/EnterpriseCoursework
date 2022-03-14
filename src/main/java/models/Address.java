@@ -43,7 +43,7 @@ public class Address implements Serializable {
 	//bi-directional many-to-one association to Warehouse
 	@OneToMany(mappedBy="address")
 	private List<Warehouse> warehouses;
-
+	
 	public Address() {
 		this.clients = new ArrayList<Client>();
 	}

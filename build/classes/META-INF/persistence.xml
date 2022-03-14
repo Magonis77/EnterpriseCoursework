@@ -15,7 +15,6 @@
 	<class>models.Invoice</class>
 	<class>models.Itemslist</class>
 	<class>models.Order</class>
-	<class>models.Payment</class>
 	<class>models.Warehouse</class>
 	</persistence-unit>
 </persistence>

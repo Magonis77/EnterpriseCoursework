@@ -19,6 +19,7 @@ import models.Client;
 import models.Crate;
 import models.Customerusage;
 import models.Employee;
+import models.Invoice;
 
 /**
  * Servlet implementation class CustomerServlet
@@ -165,8 +166,9 @@ public class CustomerServlet extends HttpServlet {
 		    String CollectionDate = request.getParameter("CollectionDate");
 		    String Shelf = "Not Assigned Yet";
 		    String StatusCrate = "Created";
+		    String Time = request.getParameter("CollectionTime");
 		    
-			crDTO.CreateOrder(ClientID,ItemType,Status,CollectionDate,Shelf,StatusCrate);
+			crDTO.CreateOrder(ClientID,ItemType,Status,CollectionDate,Shelf,StatusCrate,Time);
 			
 			List<Crate> cratelist = crDTO.allCrates();
 			HttpSession session = request.getSession();
@@ -211,7 +213,6 @@ public class CustomerServlet extends HttpServlet {
 				int ClientID = Integer.parseInt(idstring);
 				
 				Client aut = crDTO.getCustomerUsageByClientID(ClientID);
-				
 				tableStr += "<table border='1'>";
 				tableStr += "<tr><td>ID</td><td>Times Collection Made</td><td>Times Delivery Made</td></tr>";
 				
@@ -238,9 +239,29 @@ public class CustomerServlet extends HttpServlet {
 			String Amount = request.getParameter("Amount");
 		    int Ammount = Integer.parseInt(Amount);
 			crDTO.CreateInvoice(clientID,Ammount);
+			tableStr += " <br/> <strong> Invoice Created</strong></br><a href='index.html'>Home</a><br/>";	
+			
 
 		}
 		break;
+		case "PayInvoice":{
+			String Invoice = request.getParameter("InvoiceID");
+		    int InvoiceID = Integer.parseInt(Invoice);
+			String Amount = request.getParameter("Amount");
+		    int Ammount = Integer.parseInt(Amount);
+			crDTO.AddPayment(InvoiceID);
+			tableStr += " <br/> <strong> Invoice Payed</strong></br><a href='index.html'>Home</a><br/>";	
+			
+		}
+		break;
+		case "AmendCrate" :{
+			String Crate = request.getParameter("CrateID");
+		    int CrateID = Integer.parseInt(Crate);
+			String Warehouse = request.getParameter("WarehouseID");
+		    int WarehouseID = Integer.parseInt(Warehouse); 
+		    String Shelf = request.getParameter("Shelf");
+		    crDTO.AssignShelf(CrateID,WarehouseID,Shelf);
+		}
 		default:
 		break;
 		}
