@@ -4,6 +4,8 @@
 4. Add the EnterpriseCW.sql file in import.
 5. Open standalone-full.xml file for the wildfly server.
 6. Add following code under the Programming enterprise </datasource>
+7. Name the SQL database  - EnterpriseCW
+8. Do the tutorial for program enterprise week 4 "Accessing the DB" to setup the server and make prototype work.
 :
 :
 Add this:
