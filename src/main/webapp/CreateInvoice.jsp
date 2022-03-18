@@ -17,7 +17,7 @@
       <%
       	if (request.getParameter("clientID") != null)
       	{
-      		RequestDispatcher rd = request.getRequestDispatcher("CustomerServlet?action=CreateInvoice");
+      		RequestDispatcher rd = request.getRequestDispatcher("EmployeeServlet?action=CreateInvoice");
       		request.setAttribute("clientID", request.getParameter("clientID"));
       		request.setAttribute("Amount", request.getParameter("Amount"));
       		rd.forward(request, response);

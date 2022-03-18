@@ -18,7 +18,7 @@
       <%
       	if (request.getParameter("CrateID") != null)
       	{
-      		RequestDispatcher rd = request.getRequestDispatcher("CustomerServlet?action=AmendCrate");
+      		RequestDispatcher rd = request.getRequestDispatcher("EmployeeServlet?action=AmendCrate");
       		request.setAttribute("CrateID", request.getParameter("CrateID"));
       		request.setAttribute("Shelf", request.getParameter("Shelf"));
       		request.setAttribute("WarehouseID", request.getParameter("WarehouseID"));

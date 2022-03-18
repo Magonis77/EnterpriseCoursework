@@ -35,6 +35,15 @@ public class CustomerDTO {
     public CustomerDTO() {
         // TODO Auto-generated constructor stub
     }
+	//inserts that the payment was done into the database
+	public void AddPayment(int InvoiceID) {
+		
+		Invoice I = em.find(Invoice.class, InvoiceID);
+
+		I.setStatus("Payed");
+		em.persist(I);
+	}
+	//adds a new client into the database
     public void insertClient(String firstname,String LastName,String Email,int PhoneNumber,String Username, String Password)
     {
     	Client c = new Client();
@@ -47,21 +56,14 @@ public class CustomerDTO {
     	
     	em.persist(c);
     }
+    //list all clients from database
     public List<Client> allClients()
     {
     	List<Client> listClients = em.createNamedQuery("Client.findAll", Client.class).getResultList();
-    	
-    	//List queryResults = em.createQuery("SELECT c FROM Client c").getResultList();
-    	//List<Client> listClients = new ArrayList<Client>();
-    	//for(int i = 0; i < queryResults.size(); i++)
-    	//{
-    	//	Client c = new Client();
-    	//	u = (Client)queryResults.get(i);
-    	//	listClients.add(u);
-    	//}
-    	
+ 
     	return listClients;
     }
+    //inserts user address into database
     public void insertuseraddress(int ClientId, String addressline1,String addressline2,String addressline3,String addressline4,String postcode,String city) {
 		Client c = em.find(Client.class, ClientId);
 		
@@ -72,22 +74,17 @@ public class CustomerDTO {
 		a.setAddressLine4(addressline4);
 		a.setPostCode(postcode);
 		a.setCity(city);
+		//gets the clientid and adds to relationship in database
 		a.getClients().add(c);
 
 		
 		em.persist(a);
 	}
-    public List<Employee> allEmployee()
-    {
-    	List<Employee> listEmployee = em.createNamedQuery("Employee.findAll", Employee.class).getResultList();
-    	
-   
-    	return listEmployee;
-    }
-    
-	public void CreateOrder(int clientID, String itemType, String status, String collectionDate, String shelf,
+    //creates order and inserts it into the dabase.
+    public void CreateOrder(int clientID, String itemType, String status, String collectionDate, String shelf,
 			String statusCrate, String Time) {
 		
+    	//inserts order into database
 		Order o = new Order();
 		
 		o.setClientID(clientID);
@@ -97,6 +94,7 @@ public class CustomerDTO {
 		o.setDate(date);
 		
 		em.persist(o);
+		//inserts crate into database
 		Crate c = new Crate();
 		
 		c.setClientID(clientID);
@@ -105,6 +103,7 @@ public class CustomerDTO {
 		c.setStatus(statusCrate);
 		
 		em.persist(c);
+		//makes cratehistory and links it to the crate created
 		Cratehistory ch = new Cratehistory();
 		
 		ch.setCrate(c);
@@ -112,6 +111,7 @@ public class CustomerDTO {
 		
 		em.persist(ch);
 		
+		//makes customer usage in database as the order is created
 		Customerusage cu = new Customerusage();
 		
 		cu.setTimes_collection_made(0);
@@ -122,12 +122,7 @@ public class CustomerDTO {
 		
 		em.persist(cu);
 	}
-	public List<Crate> allCrates() {
-		List<Crate> listCrate = em.createNamedQuery("Crate.findAll", Crate.class).getResultList();
-    	
-		   
-    	return listCrate;
-	}
+    //adds items to the database and links them to the crate of the client.
 	public void AddItem(String item, int idCrate) {
 		
 		Crate c = em.find(Crate.class, idCrate);
@@ -139,60 +134,6 @@ public class CustomerDTO {
 		
 		em.persist(il);
 		
-		
-	}
-	public List<Customerusage> allCustUsage() {
-		
-		List<Customerusage> custusagelist = em.createNamedQuery("Customerusage.findAll", Customerusage.class).getResultList();
-		return custusagelist;
-	}
-	
-	public Client getCustomerUsageByClientID(int clientID) {
-		Client queryResult = em.createNamedQuery("Client.findCustUsagebyID", Client.class)
-				.setParameter("id", clientID)
-				.getSingleResult();
-		return queryResult;
-	}
-	
-	public void CreateInvoice(int clientID, int ammount) {
-		
-		Invoice In = new Invoice();
-		Client cl = em.find(Client.class, clientID);
-		In.setClient(cl);
-		In.setAmount(ammount);
-		Date date = new Date();
-		In.setDate(date);
-		In.setStatus("Not Payed");
-		em.persist(In);
-	
-		
-	}
-	public List<Invoice> allInvoices() {
-		List<Invoice> Invoicelist = em.createNamedQuery("Invoice.findAll", Invoice.class).getResultList();
-		return Invoicelist;
-	}
-	
-	public void AddPayment(int InvoiceID) {
-		
-		Invoice I = em.find(Invoice.class, InvoiceID);
-
-		I.setStatus("Payed");
-		em.persist(I);
-	}
-	public void AssignShelf(int crateID, int warehouseID, String shelf) {
-		
-		Crate c = em.find(Crate.class, crateID);
-		
-		Warehouse wh = em.find(Warehouse.class, warehouseID);
-		
-		c.setShelf(shelf);
-		
-		c.getWarehouses().add(wh);
-		
-		wh.getCrates().add(c);
-		em.persist(wh);
-		
-		em.persist(c);
 		
 	}
 

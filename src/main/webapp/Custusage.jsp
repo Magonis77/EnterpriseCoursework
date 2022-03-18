@@ -15,7 +15,7 @@
 <%
 if (request.getParameter("cbxClient") != null) {
 	
-			response.sendRedirect("CustomerServlet?action=CustUsagelist" + "&ClientID=" + 
+			response.sendRedirect("EmployeeServlet?action=CustUsagelist" + "&ClientID=" + 
 									request.getParameter("cbxClient"));
 											
 											
