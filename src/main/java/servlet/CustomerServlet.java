@@ -23,6 +23,7 @@ import models.Crate;
 import models.Customerusage;
 import models.Employee;
 import models.Invoice;
+import models.Order;
 
 /**
  * Servlet implementation class CustomerServlet
@@ -162,9 +163,10 @@ public class CustomerServlet extends HttpServlet {
 		    
 		    crDTO.CreateOrder(ClientID,ItemType,Status,CollectionDate,Shelf,StatusCrate,Time);
 			
-			List<Crate> cratelist = EDTO.allCrates();
+			List<Crate> cratelist = crDTO.allCratesbyClientID(ClientID);
 			HttpSession session = request.getSession();
 			session.setAttribute("cratelist", cratelist);
+			session.setAttribute("clientID", ClientID);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddItems.jsp");
 			dispatcher.forward(request, response);
@@ -178,10 +180,8 @@ public class CustomerServlet extends HttpServlet {
 			int idCrate = Integer.parseInt(cbxCrate);
 			
 			crDTO.AddItem(Item, idCrate);
-			tableStr += "<br/><strong>Item added</strong>";
-			List<Crate> cratelist = EDTO.allCrates();
 			HttpSession session = request.getSession();
-			session.setAttribute("cratelist", cratelist);
+			session.setAttribute("CrateID",idCrate);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddItems.jsp");
 			dispatcher.forward(request, response);
@@ -196,6 +196,26 @@ public class CustomerServlet extends HttpServlet {
 		case "orderdelivery":{
 			
 			
+		}
+		case "GetClient": {
+			List<Client> clientlist = crDTO.allClients();
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("clientlist", clientlist);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ClientOrders.jsp");
+			dispatcher.forward(request, response);
+		}
+		break;
+		case "CustOrdersList":{
+			String idstring = request.getParameter("ClientID");
+				int ClientID = Integer.parseInt(idstring);
+				List<Order> orderlist = crDTO.allCustomerOrders(ClientID);
+				HttpSession session = request.getSession();
+				session.setAttribute("orderlist", orderlist);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/ClientOrderView.jsp");
+				dispatcher.forward(request, response);
 		}
 		break;
 		default:

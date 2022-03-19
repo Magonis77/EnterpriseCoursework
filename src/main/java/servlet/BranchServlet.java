@@ -17,8 +17,7 @@ import dao.BranchDTO;
 import dao.CustomerDTO;
 import dao.EmployeeDTO;
 import dao.adminDTO;
-import models.Client;
-import models.Crate;
+import models.Order;
 
 /**
  * Servlet implementation class BranchServlet
@@ -46,11 +45,19 @@ public class BranchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String param_action = request.getParameter("action");
 		String tableStr = new String();
 		
 		switch(param_action) {
+		case "GetOrders": {
+			List<Order> orderlist = bDTO.allProccessOrders();
+			HttpSession session = request.getSession();
+			session.setAttribute("orderlist", orderlist);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/BranchOrderList.jsp");
+			dispatcher.forward(request, response);
+		}
+		break;
 		case "revieworder":
 		{
 			

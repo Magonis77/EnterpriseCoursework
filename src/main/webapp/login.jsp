@@ -7,6 +7,7 @@
 <title>Login Page</title>
 </head>
 <body>
+<a href='index.html'>Home</a><br/>
 <h1>
 Login:
 </h1> 

@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +39,7 @@ public class Branch implements Serializable {
 	private List<Order> orders;
 
 	public Branch() {
+		this.orders = new ArrayList<Order>();
 	}
 
 	public int getId() {

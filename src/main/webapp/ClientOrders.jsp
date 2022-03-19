@@ -9,13 +9,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Customer Usage</title>
+<title>Client Orders</title>
 </head>
 <body>
 <%
 if (request.getParameter("cbxClient") != null) {
 	
-			response.sendRedirect("EmployeeServlet?action=CustUsagelist" + "&ClientID=" + 
+			response.sendRedirect("CustomerServlet?action=CustOrdersList" + "&ClientID=" + 
 									request.getParameter("cbxClient"));
 											
 											
@@ -26,7 +26,7 @@ if (request.getParameter("cbxClient") != null) {
 	
 	%>
 
-	<form action="Custusage.jsp" method = "post">
+	<form action="ClientOrders.jsp" method = "post">
 	<a href='index.html'>Home</a><br/>
          Select a Client:&nbsp; <select name="cbxClient" style="width: 200px">
 			<c:forEach items="${clientlist}" var="client">

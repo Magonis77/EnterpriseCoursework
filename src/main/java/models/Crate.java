@@ -12,7 +12,12 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Crate.findAll", query="SELECT c FROM Crate c")
+@NamedQueries(
+		{
+			@NamedQuery(name="Crate.findAll", query="SELECT c FROM Crate c"),
+			@NamedQuery(name="Crate.findCrateByClientID", query = "Select c from Crate c Where c.clientID=:id")
+		})
+
 public class Crate implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -51,6 +56,7 @@ public class Crate implements Serializable {
 
 	public Crate() {
 		this.warehouses = new ArrayList<Warehouse>();
+		this.itemslists = new ArrayList<Itemslist>();
 	}
 
 	public int getId() {

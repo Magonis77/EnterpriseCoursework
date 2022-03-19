@@ -7,12 +7,15 @@
 <title>Employee Login Page</title>
 </head>
 <body>
+<a href='index.html'>Home</a><br/>
 <h1>
+
 Employee Login:
 </h1> 
 <hr/>  
   
 <h3>Login Form</h3>  
+
 	<form method="GET">
 		Username: <input type="text" name="username"> <br />
 		Password: <input type="password" name="password"> <br /> 

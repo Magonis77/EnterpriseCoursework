@@ -8,6 +8,7 @@
 </head>
 <body>
 <form method = "GET">
+<a href='index.html'>Home</a><br/>
          First Name: <input type = "text" name = "firstName"></br>
          Last Name: <input type = "text" name = "lastName"></br>
          Email: <input type = "text" name = "email"></br>

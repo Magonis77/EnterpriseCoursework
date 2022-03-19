@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Create Invoice</title>
 </head>
 <body>
 <form method = "GET">
+<a href='index.html'>Home</a><br/>
          Client ID <input type = "text" name = "clientID"></br>
          Amount: <input type = "text" name = "Amount"></br>
          <br />

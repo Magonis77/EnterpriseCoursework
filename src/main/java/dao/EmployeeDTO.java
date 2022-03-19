@@ -12,6 +12,7 @@ import models.Client;
 import models.Crate;
 import models.Customerusage;
 import models.Invoice;
+import models.Order;
 import models.Warehouse;
 
 /**
@@ -83,6 +84,26 @@ public List<Customerusage> allCustUsage() {
     	
 		   
     	return listCrate;
+	}
+	public List<Order> allProccessedOrders() {
+		String Status = "Crate Ordered";
+    	List<Order> listOrders = em.createNamedQuery("Order.findOrderByStatus", Order.class)
+    			.setParameter("Status", Status)
+				.getResultList();
+		return listOrders;
+	}
+	public void AcceptOrder(int orderNumber) {
+		Order o = em.find(Order.class, orderNumber);
+		
+		o.setStatus("Done");
+		
+		em.persist(o);
+		
+	}
+	public List<Order> allOrders() {
+
+		List<Order> listOrders = em.createNamedQuery("Order.findAll", Order.class).getResultList();
+		return listOrders;
 	}
 
 }

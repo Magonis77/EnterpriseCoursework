@@ -79,6 +79,17 @@ public class CustomerDTO {
 
 		
 		em.persist(a);
+		
+
+		Customerusage cu = new Customerusage();
+		
+		cu.setTimes_collection_made(0);
+		cu.setTimes_delivery_made(0);
+		
+		Client cl = em.find(Client.class, ClientId);
+		cu.setClient(cl);
+		
+		em.persist(cu);
 	}
     //creates order and inserts it into the dabase.
     public void CreateOrder(int clientID, String itemType, String status, String collectionDate, String shelf,
@@ -112,15 +123,6 @@ public class CustomerDTO {
 		em.persist(ch);
 		
 		//makes customer usage in database as the order is created
-		Customerusage cu = new Customerusage();
-		
-		cu.setTimes_collection_made(0);
-		cu.setTimes_delivery_made(0);
-		
-		Client cl = em.find(Client.class, clientID);
-		cu.setClient(cl);
-		
-		em.persist(cu);
 	}
     //adds items to the database and links them to the crate of the client.
 	public void AddItem(String item, int idCrate) {
@@ -136,5 +138,18 @@ public class CustomerDTO {
 		
 		
 	}
-
+	
+	public List<Crate> allCratesbyClientID(int clientID) {
+		List<Crate> cratelist = em.createNamedQuery("Crate.findCrateByClientID", Crate.class)
+		.setParameter("id", clientID)
+		.getResultList();
+		
+		return cratelist;
+	}
+	public List<Order> allCustomerOrders(int clientID) {
+    	List<Order> listOrders = em.createNamedQuery("Order.findOrderByClient", Order.class)
+    			.setParameter("id", clientID)
+				.getResultList();
+		return listOrders;
+	}
 }

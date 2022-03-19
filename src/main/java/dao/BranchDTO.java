@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import models.Address;
+import models.Branch;
 import models.Client;
 import models.Crate;
 import models.Cratehistory;
@@ -30,5 +31,29 @@ public class BranchDTO {
     public BranchDTO() {
         // TODO Auto-generated constructor stub
     }
-
+    public List<Order> allProccessOrders()
+    {
+    	String Status = "In Process";
+    	List<Order> listOrders = em.createNamedQuery("Order.findOrderByStatus", Order.class)
+    			.setParameter("Status", Status)
+				.getResultList();
+ 
+    	return listOrders;
+    }
+	public void processOrder(int orderNumber) {
+		
+		Order o = em.find(Order.class, orderNumber);
+		Branch b = new Branch();
+		o.setStatus("Crate Ordered");
+		//b.getOrders().set(orderNumber, o);   Not implemented Yet Error fixing needed
+		
+		em.persist(b);
+		em.persist(o);
+		
+	}
+	
+	public void SendOrderNote(int number) {
+		//In future work this will take care of sending the order note to the employees as email or notifications, to notify
+		//at the exact moment when the order is processed.
+	}
 }

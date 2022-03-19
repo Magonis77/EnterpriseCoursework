@@ -19,6 +19,7 @@ import dao.EmployeeDTO;
 import dao.adminDTO;
 import models.Client;
 import models.Employee;
+import models.Order;
 
 /**
  * Servlet implementation class EmployeeServlet
@@ -149,6 +150,24 @@ public class EmployeeServlet extends HttpServlet {
 	    int WarehouseID = Integer.parseInt(Warehouse); 
 	    String Shelf = request.getParameter("Shelf");
 	    EDTO.AssignShelf(CrateID,WarehouseID,Shelf);
+	}
+	break;
+	case "GetProccessedOrders": {
+		List<Order> orderlist = EDTO.allProccessedOrders();
+		HttpSession session = request.getSession();
+		session.setAttribute("orderlist", orderlist);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/OrderListEmployee.jsp");
+		dispatcher.forward(request, response);
+	}
+	break;
+	case "AllOrders": {
+		List<Order> orderlist = EDTO.allOrders();
+		HttpSession session = request.getSession();
+		session.setAttribute("orderlist", orderlist);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/AllOrdersList.jsp");
+		dispatcher.forward(request, response);
 	}
 	break;
 	default:

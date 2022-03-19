@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +14,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="orders")
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
+@NamedQueries(
+		{
+			@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o"),
+			@NamedQuery(name="Order.findOrderByStatus", query = "Select o from Order o Where o.status=:Status"),
+			@NamedQuery(name="Order.findOrderByClient", query = "Select o from Order o Where o.clientID=:id")
+		})
+
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +42,7 @@ public class Order implements Serializable {
 	private List<Branch> branches;
 
 	public Order() {
+		this.branches = new ArrayList<Branch>();
 	}
 
 	public int getNumber() {

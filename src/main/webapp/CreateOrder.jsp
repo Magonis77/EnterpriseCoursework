@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Create Order</title>
 </head>
 <body>
 <form method = "GET">
+<a href='index.html'>Home</a><br/>
          Client Number(ID): <input type = "text" name = "Client"></br>
          Item Type: <input type = "text" name = "ItemType"></br>
          Preferred Collection Date:<input type = "Date" name = "CollectionDate"></br>

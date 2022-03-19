@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Amend Crate</title>
 </head>
 <body>
 <form method = "GET">
+<a href='index.html'>Home</a><br/>
          Crate ID (ID): <input type = "text" name = "CrateID"></br>
          Shelf: <input type = "text" name = "Shelf"></br>
         WarehouseID:<input type = "text" name = "WarehouseID"></br>
