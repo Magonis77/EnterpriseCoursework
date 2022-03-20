@@ -6,10 +6,12 @@
 	<class>models.Branch</class>
 	<class>models.Client</class>
 	<class>models.Collection</class>
+	<class>models.CollectionItem</class>
 	<class>models.Crate</class>
 	<class>models.Cratehistory</class>
 	<class>models.Customerusage</class>
 	<class>models.Delivery</class>
+	<class>models.Deliveryitem</class>
 	<class>models.Department</class>
 	<class>models.Employee</class>
 	<class>models.Invoice</class>

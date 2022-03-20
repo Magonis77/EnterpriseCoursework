@@ -9,8 +9,7 @@
 <body>
 <a href='index.html'>Home</a><br/>
 <h1>Choose what you want to have delivered.</h1>
-<a href='deliveryitem.jsp'>Deliver specific items</a><br/>
+<a href='/WEB-INF/delivery/deliveryitem.jsp'>Deliver specific items</a><br/>
 or:</br>
-<a href='deliverycrate.jsp'>Deliver Entire crate</a><br/>
+<a href='/WEB-INF/delivery/deliverycrate.jsp'>Deliver Entire crate</a><br/>
 </body>
-</html>

@@ -18,8 +18,9 @@ public class Delivery implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
-	private String date;
+
+	@Temporal(TemporalType.DATE)
+	private Date date;
 
 	private String delivery_Address;
 
@@ -66,11 +67,11 @@ public class Delivery implements Serializable {
 		this.id = id;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return this.date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

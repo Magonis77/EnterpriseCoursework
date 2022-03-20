@@ -20,8 +20,7 @@
 									request.getParameter("cbxCrate")+ "&Item="+ request.getParameter("Item"));
 	}
 	%>
-
-	<%
+		<%
 	@SuppressWarnings("unchecked")
 	List<Crate> cratelist = (List<Crate>) session.getAttribute("cratelist");
 	

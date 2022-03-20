@@ -57,7 +57,6 @@ public class Crate implements Serializable {
 	public Crate() {
 		this.warehouses = new ArrayList<Warehouse>();
 		this.itemslists = new ArrayList<Itemslist>();
-		this.collections = new ArrayList<Collection>();
 	}
 
 	public int getId() {

@@ -2,8 +2,6 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +15,7 @@ import java.util.List;
 @NamedQueries(
 		{
 			@NamedQuery(name="Collection.findAll", query="SELECT c FROM Collection c"),
-			@NamedQuery(name="Collection.findlatestaddedcollection", query="SELECT max(c.id) FROM Collection c")
+			@NamedQuery(name="Collection.findCollectionbyaddress", query="Select c from Collection c Where c.collection_Address=:Address")
 
 		}
 		)
@@ -30,7 +28,8 @@ public class Collection implements Serializable {
 
 	private String collection_Address;
 
-	private String date;
+	@Temporal(TemporalType.DATE)
+	private Date date;
 
 	private String frequency;
 
@@ -65,8 +64,6 @@ public class Collection implements Serializable {
 	private List<CollectionItem> collectionItems;
 
 	public Collection() {
-		this.collectionItems = new ArrayList<CollectionItem>();
-		this.crates = new ArrayList<Crate>();
 	}
 
 	public int getId() {
@@ -85,11 +82,11 @@ public class Collection implements Serializable {
 		this.collection_Address = collection_Address;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return this.date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

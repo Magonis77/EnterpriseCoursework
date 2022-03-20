@@ -8,34 +8,39 @@ import java.util.List;
 
 
 /**
- * The persistent class for the itemslist database table.
+ * The persistent class for the warehouse database table.
  * 
  */
 @Entity
-@NamedQuery(name="Itemslist.findAll", query="SELECT i FROM Itemslist i")
-public class Itemslist implements Serializable {
+@NamedQuery(name="Warehouse.findAll", query="SELECT w FROM Warehouse w")
+public class Warehouse implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private String item;
+	private int capacity;
+
+	//bi-directional many-to-one association to Address
+	@ManyToOne
+	@JoinColumn(name="AddressID")
+	private Address address;
 
 	//bi-directional many-to-many association to Crate
 	@ManyToMany
 	@JoinTable(
-		name="itemslist_crate"
+		name="warehouse_crate"
 		, joinColumns={
-			@JoinColumn(name="Item_ID")
+			@JoinColumn(name="Warehouse_ID")
 			}
 		, inverseJoinColumns={
 			@JoinColumn(name="Crate_ID")
 			}
 		)
 	private List<Crate> crates;
-	
-	public Itemslist() {
+
+	public Warehouse() {
 		this.crates = new ArrayList<Crate>();
 	}
 
@@ -47,12 +52,20 @@ public class Itemslist implements Serializable {
 		this.id = id;
 	}
 
-	public String getItem() {
-		return this.item;
+	public int getCapacity() {
+		return this.capacity;
 	}
 
-	public void setItem(String item) {
-		this.item = item;
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public Address getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public List<Crate> getCrates() {
