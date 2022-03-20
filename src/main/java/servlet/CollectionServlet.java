@@ -118,7 +118,7 @@ public class CollectionServlet extends HttpServlet {
 			String cbcrate = request.getParameter("cbxCrate");
 			int Crate = Integer.parseInt(cbcrate);
 			cDTO.createCollection(date, Time, Address, Frequency, ClientID);
-			cDTO.assigncratecollection(ClientID, Crate);
+			cDTO.assigncratecollection(ClientID, Crate, date);
 			tableStr += "<a href='index.html'>Home</a><br/>";
 			
 		}
@@ -133,13 +133,23 @@ public class CollectionServlet extends HttpServlet {
 			String Client = request.getParameter("ClientID");
 			int ClientID = Integer.parseInt(Client);
 			cDTO.createCollection(date, Time, Address, Frequency, ClientID);
-			cDTO.createCrate(ClientID, ItemType);
+			cDTO.createCrate(ClientID, ItemType, date);
 			List<Crate> cratelist = crDTO.allCratesbyClientID(ClientID);
 			HttpSession session = request.getSession();
 			session.setAttribute("cratelist", cratelist);
 			session.setAttribute("clientID", ClientID);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("AddItems.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		break;
+		case "allCollections":{
+			List<Collection> collectionlist = cDTO.allCollections();
+			HttpSession session = request.getSession();
+			session.setAttribute("collectionlist", collectionlist);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/AllCollectionList.jsp");
 			dispatcher.forward(request, response);
 			
 		}
@@ -152,7 +162,7 @@ public class CollectionServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<title> Book Store App </title>");
+		out.println("<title> Packfords Storage company Prototype </title>");
 		out.println("</head>");
 		
 		out.println("<body>");

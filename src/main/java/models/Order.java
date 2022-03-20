@@ -2,8 +2,6 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +18,7 @@ import java.util.List;
 			@NamedQuery(name="Order.findOrderByStatus", query = "Select o from Order o Where o.status=:Status"),
 			@NamedQuery(name="Order.findOrderByClient", query = "Select o from Order o Where o.clientID=:id")
 		})
+
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -40,9 +39,7 @@ public class Order implements Serializable {
 	@ManyToMany(mappedBy="orders")
 	private List<Branch> branches;
 
-
 	public Order() {
-		this.branches = new ArrayList<Branch>();
 	}
 
 	public int getNumber() {

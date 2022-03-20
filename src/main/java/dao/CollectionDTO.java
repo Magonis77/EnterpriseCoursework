@@ -13,7 +13,9 @@ import models.Client;
 import models.Collection;
 import models.CollectionItem;
 import models.Crate;
+import models.Cratehistory;
 import models.Customerusage;
+import models.Invoice;
 import models.Order;
 
 /**
@@ -49,21 +51,26 @@ public class CollectionDTO {
 	public void createCollection(String date, String time, String address, String Frequency, int clientID) {
 		
 		Collection c = new Collection();
-		
+		Client client = em.find(Client.class, clientID);
 		c.setDate(date);
 		c.setTime(time);
 		c.setCollection_Address(address);
 		c.setJourney("Not set yet");
 		c.setFrequency(Frequency);
-		Client cu = this.getCustomerUsageByClientID(clientID);
-		int TimesCollectionMade = 
+		c.setClient(client);
+		Client cl = em.find(Client.class, clientID);
+		
+		int TimesCollectionMade = cl.getCustomerusages().get(0).getTimes_collection_made();
+		int Times = TimesCollectionMade +1;
+		cl.getCustomerusages().get(0).setTimes_collection_made(Times);
 		
 		em.persist(c);
+		em.persist(cl);
 		
 	}
 
-	private Client getCustomerUsageByClientID(int clientID) {
-		Client queryResult = em.createNamedQuery("Client.findusagebyclientID", Client.class)
+	private Customerusage getCustomerUsageByClientID(int clientID) {
+		Customerusage queryResult = em.createNamedQuery("Customerusage.findusagebyclientID", Customerusage.class)
 				.setParameter("id", clientID)
 				.getSingleResult();
 		return queryResult;
@@ -76,7 +83,7 @@ public class CollectionDTO {
 		
 	}
 
-	public void assigncratecollection(int clientID, int crate) {
+	public void assigncratecollection(int clientID, int crate, String date) {
 		int collection = this.getlatestcollectionadd();
 		Collection c = em.find(Collection.class, collection);
 		Crate cr = em.find(Crate.class, crate);
@@ -84,12 +91,12 @@ public class CollectionDTO {
 		cr.getCollections().add(c);
 		c.getCrates().add(cr);
 		cr.setStatus("in Transit from client");
-		
+		cr.getCratehistories().get(0).setDate_Stored(date);
 		em.persist(cr);
 		em.persist(c);
 	}
 
-	public void createCrate(int clientID, String itemType) {
+	public void createCrate(int clientID, String itemType, String date) {
 		Crate c = new Crate();
 		int collection = this.getlatestcollectionadd();
 		Collection co = em.find(Collection.class, collection);
@@ -101,6 +108,19 @@ public class CollectionDTO {
 		c.getCollections().add(co);
 		em.persist(c);
 		em.persist(co);
+		Cratehistory ch = new Cratehistory();
+		
+		ch.setCrate(c);
+		ch.setDate_Stored(date);
+		
+		em.persist(ch);
+	
+	
+	}
+
+	public List<Collection> allCollections() {
+		List<Collection> Collectionlist = em.createNamedQuery("Collection.findAll", Collection.class).getResultList();
+		return Collectionlist;
 	}
 
 }

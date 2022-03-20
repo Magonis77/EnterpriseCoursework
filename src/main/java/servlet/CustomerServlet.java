@@ -107,6 +107,15 @@ public class CustomerServlet extends HttpServlet {
 		//inserts user, gets the data from jsp and passes to session bean(DTO)
 		case "insertUser":
 		{
+				String addressline1 = request.getParameter("Address1");
+				String addressline2 = request.getParameter("Address2");
+				String addressline3 = request.getParameter("Address3");
+				String addressline4 = request.getParameter("Address4");
+				String postcode = request.getParameter("PostCode");
+				String city = request.getParameter("City");
+		
+				crDTO.insertuseraddress(addressline1,addressline2,addressline3,addressline4,postcode,city);
+				int AddressID = crDTO.getlatestaddress();
 			String firstname = request.getParameter("firstName");
 			String lastname = request.getParameter("lastName");
 		    String email = request.getParameter("email");
@@ -114,9 +123,11 @@ public class CustomerServlet extends HttpServlet {
 		    String Username = firstname + lastname;
 		    String Password = request.getParameter("Password");
 		    int phonenumber = Integer.parseInt(phone);
-		    crDTO.insertClient(firstname,lastname,email,phonenumber,Username,Password);
+		    crDTO.insertClient(firstname,lastname,email,phonenumber,Username,Password, AddressID);
+		    
 			
-			tableStr += "<a href='CustomerServlet?action=getusers'>Insert Customers Address</a><br/>";
+			tableStr += "<a href='index.html'>Home</a><br/>";
+			tableStr += "Customer Inserted!";
 		}
 		break;
 		//gets user and sends them to the jsp
@@ -132,23 +143,7 @@ public class CustomerServlet extends HttpServlet {
 			
 		}
 		break;
-		//inserts user address , gets the data from jsp and sends to session bean(DTO) to insert into Database
-		case "insertuseraddress":
-		{
-			String cbxClient = request.getParameter("ClientID");
-			int idClient = Integer.parseInt(cbxClient);
-			String addressline1 = request.getParameter("Address1");
-			String addressline2 = request.getParameter("Address2");
-			String addressline3 = request.getParameter("Address3");
-			String addressline4 = request.getParameter("Address4");
-			String postcode = request.getParameter("PostCode");
-			String city = request.getParameter("City");
-			
-			crDTO.insertuseraddress(idClient, addressline1,addressline2,addressline3,addressline4,postcode,city);
-
-			tableStr += " <br/><strong>Client address added! </strong>";
-		}
-		break;
+		
 		//gets the order data from jsp and sends to DTO to insert into the Database.
 		case "CreateOrder":
 		{
@@ -226,7 +221,7 @@ public class CustomerServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<title> Book Store App </title>");
+		out.println("<title> Packfords Storage company Prototype </title>");
 		out.println("</head>");
 		
 		out.println("<body>");

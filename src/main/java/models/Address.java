@@ -2,8 +2,6 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,8 +34,8 @@ public class Address implements Serializable {
 	@OneToMany(mappedBy="address")
 	private List<Branch> branches;
 
-	//bi-directional many-to-many association to Client
-	@ManyToMany(mappedBy="addresses")
+	//bi-directional many-to-one association to Client
+	@OneToMany(mappedBy="address")
 	private List<Client> clients;
 
 	//bi-directional many-to-one association to Warehouse
@@ -45,7 +43,6 @@ public class Address implements Serializable {
 	private List<Warehouse> warehouses;
 
 	public Address() {
-		this.clients = new ArrayList<Client>();
 	}
 
 	public int getId() {
@@ -132,6 +129,20 @@ public class Address implements Serializable {
 
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
+	}
+
+	public Client addClient(Client client) {
+		getClients().add(client);
+		client.setAddress(this);
+
+		return client;
+	}
+
+	public Client removeClient(Client client) {
+		getClients().remove(client);
+		client.setAddress(null);
+
+		return client;
 	}
 
 	public List<Warehouse> getWarehouses() {

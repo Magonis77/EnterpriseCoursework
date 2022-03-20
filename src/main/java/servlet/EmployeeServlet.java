@@ -178,7 +178,7 @@ public class EmployeeServlet extends HttpServlet {
 	PrintWriter out = response.getWriter();
 	out.println("<html>");
 	out.println("<head>");
-	out.println("<title> Book Store App </title>");
+	out.println("<title> Packfords Storage company Prototype </title>");
 	out.println("</head>");
 	
 	out.println("<body>");

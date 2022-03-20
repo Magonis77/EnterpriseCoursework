@@ -1,8 +1,6 @@
 package models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
 import javax.persistence.*;
 
 
@@ -16,6 +14,7 @@ import javax.persistence.*;
 			@NamedQuery(name="Customerusage.findAll", query="SELECT c FROM Customerusage c"),
 			@NamedQuery(name="Customerusage.findusagebyclientID", query = "Select c from Customerusage c Where c.client=:id")
 		})
+
 public class Customerusage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +34,9 @@ public class Customerusage implements Serializable {
 	private Client client;
 
 	public Customerusage() {
+		this.client = new Client();
 	}
+
 
 	public int getId() {
 		return this.id;

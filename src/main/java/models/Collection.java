@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -13,14 +12,18 @@ import java.util.List;
  * 
  */
 @Entity
-
 @NamedQueries(
 		{
 			@NamedQuery(name="Collection.findAll", query="SELECT c FROM Collection c"),
-			@NamedQuery(name="Collection.findlatestaddedcollection", query="SELECT max(c.id) FROM Collection c")
+			@NamedQuery(name="Collection.findlatestaddedcollection", query="SELECT max(c.id) FROM Collection c"),
+			@NamedQuery(name="Collection.findallitems", query="SELECT c FROM Collection c join fetch c.collectionItems Where c.id=:id "),
+			@NamedQuery(name="Collection.findcratebycollectionID", query="SELECT c FROM Collection c join fetch c.crates Where c.id=:id ")
+
 
 		}
 		)
+
+
 public class Collection implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -38,18 +41,10 @@ public class Collection implements Serializable {
 
 	private String time;
 
-	//bi-directional many-to-many association to Crate
-	@ManyToMany
-	@JoinTable(
-		name="collection_crate"
-		, joinColumns={
-			@JoinColumn(name="Collection_ID")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="Crate_ID")
-			}
-		)
-	private List<Crate> crates;
+	//bi-directional many-to-one association to Client
+	@ManyToOne
+	@JoinColumn(name="ClientID")
+	private Client client;
 
 	//bi-directional many-to-many association to CollectionItem
 	@ManyToMany
@@ -63,6 +58,19 @@ public class Collection implements Serializable {
 			}
 		)
 	private List<CollectionItem> collectionItems;
+
+	//bi-directional many-to-many association to Crate
+	@ManyToMany
+	@JoinTable(
+		name="collection_crate"
+		, joinColumns={
+			@JoinColumn(name="Collection_ID")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="Crate_ID")
+			}
+		)
+	private List<Crate> crates;
 
 	public Collection() {
 		this.collectionItems = new ArrayList<CollectionItem>();
@@ -117,12 +125,12 @@ public class Collection implements Serializable {
 		this.time = time;
 	}
 
-	public List<Crate> getCrates() {
-		return this.crates;
+	public Client getClient() {
+		return this.client;
 	}
 
-	public void setCrates(List<Crate> crates) {
-		this.crates = crates;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public List<CollectionItem> getCollectionItems() {
@@ -131,6 +139,14 @@ public class Collection implements Serializable {
 
 	public void setCollectionItems(List<CollectionItem> collectionItems) {
 		this.collectionItems = collectionItems;
+	}
+
+	public List<Crate> getCrates() {
+		return this.crates;
+	}
+
+	public void setCrates(List<Crate> crates) {
+		this.crates = crates;
 	}
 
 }

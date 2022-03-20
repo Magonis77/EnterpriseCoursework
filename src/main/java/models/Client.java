@@ -12,7 +12,6 @@ import java.util.List;
  * 
  */
 @Entity
-
 @NamedQueries(
 		{
 @NamedQuery(name="Client.findAll", query="SELECT c FROM Client c"),
@@ -40,29 +39,27 @@ public class Client implements Serializable {
 
 	private String username;
 
-	//bi-directional many-to-many association to Address
-	@ManyToMany
-	@JoinTable(
-		name="client_address"
-		, joinColumns={
-			@JoinColumn(name="Client_ID")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="Address_ID")
-			}
-		)
-	private List<Address> addresses;
+	//bi-directional many-to-one association to Address
+	@ManyToOne
+	private Address address;
+
+	//bi-directional many-to-one association to Collection
+	@OneToMany(mappedBy="client")
+	private List<Collection> collections;
 
 	//bi-directional many-to-one association to Customerusage
 	@OneToMany(mappedBy="client")
 	private List<Customerusage> customerusages;
+
+	//bi-directional many-to-one association to Delivery
+	@OneToMany(mappedBy="client")
+	private List<Delivery> deliveries;
 
 	//bi-directional many-to-one association to Invoice
 	@OneToMany(mappedBy="client")
 	private List<Invoice> invoices;
 
 	public Client() {
-		this.addresses = new ArrayList<Address>();
 		this.customerusages = new ArrayList<Customerusage>();
 		this.invoices = new ArrayList<Invoice>();
 	}
@@ -123,12 +120,34 @@ public class Client implements Serializable {
 		this.username = username;
 	}
 
-	public List<Address> getAddresses() {
-		return this.addresses;
+	public Address getAddress() {
+		return this.address;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<Collection> getCollections() {
+		return this.collections;
+	}
+
+	public void setCollections(List<Collection> collections) {
+		this.collections = collections;
+	}
+
+	public Collection addCollection(Collection collection) {
+		getCollections().add(collection);
+		collection.setClient(this);
+
+		return collection;
+	}
+
+	public Collection removeCollection(Collection collection) {
+		getCollections().remove(collection);
+		collection.setClient(null);
+
+		return collection;
 	}
 
 	public List<Customerusage> getCustomerusages() {
@@ -151,6 +170,28 @@ public class Client implements Serializable {
 		customerusage.setClient(null);
 
 		return customerusage;
+	}
+
+	public List<Delivery> getDeliveries() {
+		return this.deliveries;
+	}
+
+	public void setDeliveries(List<Delivery> deliveries) {
+		this.deliveries = deliveries;
+	}
+
+	public Delivery addDelivery(Delivery delivery) {
+		getDeliveries().add(delivery);
+		delivery.setClient(this);
+
+		return delivery;
+	}
+
+	public Delivery removeDelivery(Delivery delivery) {
+		getDeliveries().remove(delivery);
+		delivery.setClient(null);
+
+		return delivery;
 	}
 
 	public List<Invoice> getInvoices() {

@@ -2,7 +2,6 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 
@@ -18,7 +17,7 @@ public class Delivery implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String date;
 
 	private String delivery_Address;
@@ -28,6 +27,11 @@ public class Delivery implements Serializable {
 	private String journey;
 
 	private String time;
+
+	//bi-directional many-to-one association to Client
+	@ManyToOne
+	@JoinColumn(name="ClientID")
+	private Client client;
 
 	//bi-directional many-to-many association to Crate
 	@ManyToMany
@@ -104,6 +108,14 @@ public class Delivery implements Serializable {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public Client getClient() {
+		return this.client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public List<Crate> getCrates() {

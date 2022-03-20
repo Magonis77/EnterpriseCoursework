@@ -13,7 +13,15 @@ import java.util.List;
  */
 @Entity
 @Table(name="collection_items")
-@NamedQuery(name="CollectionItem.findAll", query="SELECT c FROM CollectionItem c")
+
+@NamedQueries(
+		{
+			@NamedQuery(name="CollectionItem.findAll", query="SELECT c FROM CollectionItem c"),
+			@NamedQuery(name="CollectionItem.findallitemsbycollectionID", query = "Select c from CollectionItem c Where c.collections=:id")
+		})
+
+
+
 public class CollectionItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 

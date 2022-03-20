@@ -12,7 +12,15 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Itemslist.findAll", query="SELECT i FROM Itemslist i")
+@NamedQueries(
+		{
+			@NamedQuery(name="Itemslist.findAll", query="SELECT i FROM Itemslist i"),
+			@NamedQuery(name="Itemslist.findallitemsbycrateID", query="Select i from Itemslist i join fetch i.crates Where i.id=:id")
+
+		}
+		)
+
+
 public class Itemslist implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,11 +42,10 @@ public class Itemslist implements Serializable {
 			}
 		)
 	private List<Crate> crates;
-	
+
 	public Itemslist() {
 		this.crates = new ArrayList<Crate>();
 	}
-
 	public int getId() {
 		return this.id;
 	}

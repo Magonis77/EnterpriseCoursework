@@ -44,7 +44,7 @@ public class CustomerDTO {
 		em.persist(I);
 	}
 	//adds a new client into the database
-    public void insertClient(String firstname,String LastName,String Email,int PhoneNumber,String Username, String Password)
+    public void insertClient(String firstname,String LastName,String Email,int PhoneNumber,String Username, String Password, int addressID)
     {
     	Client c = new Client();
     	c.setFirstName(firstname);
@@ -53,8 +53,14 @@ public class CustomerDTO {
     	c.setPhoneNumber(PhoneNumber);
     	c.setUsername(Username);
     	c.setPassword(Password);
-    	
+    	Address address = em.find(Address.class, addressID);
+    	c.setAddress(address);
+    	Customerusage cu = new Customerusage();
+		cu.setTimes_collection_made(0);
+		cu.setTimes_delivery_made(0);
     	em.persist(c);
+		cu.setClient(c);
+		em.persist(cu);
     }
     //list all clients from database
     public List<Client> allClients()
@@ -64,8 +70,7 @@ public class CustomerDTO {
     	return listClients;
     }
     //inserts user address into database
-    public void insertuseraddress(int ClientId, String addressline1,String addressline2,String addressline3,String addressline4,String postcode,String city) {
-		Client c = em.find(Client.class, ClientId);
+    public void insertuseraddress(String addressline1,String addressline2,String addressline3,String addressline4,String postcode,String city) {
 		
 		Address a = new Address();
 		a.setAddressLine1(addressline1);
@@ -75,21 +80,7 @@ public class CustomerDTO {
 		a.setPostCode(postcode);
 		a.setCity(city);
 		//gets the clientid and adds to relationship in database
-		a.getClients().add(c);
-
-		
 		em.persist(a);
-		
-
-		Customerusage cu = new Customerusage();
-		
-		cu.setTimes_collection_made(0);
-		cu.setTimes_delivery_made(0);
-		
-		Client cl = em.find(Client.class, ClientId);
-		cu.setClient(cl);
-		
-		em.persist(cu);
 	}
     //creates order and inserts it into the dabase.
     public void CreateOrder(int clientID, String itemType, String status, String collectionDate, String shelf,
@@ -122,6 +113,12 @@ public class CustomerDTO {
 		
 		em.persist(ch);
 		
+		Client cl = em.find(Client.class, clientID);
+		int Timescollectionmade = cl.getCustomerusages().get(0).getTimes_collection_made();
+		int Times = Timescollectionmade + 1;
+		cl.getCustomerusages().get(0).setTimes_collection_made(Times);
+		em.persist(cl);
+		
 		//makes customer usage in database as the order is created
 	}
     //adds items to the database and links them to the crate of the client.
@@ -151,5 +148,12 @@ public class CustomerDTO {
     			.setParameter("id", clientID)
 				.getResultList();
 		return listOrders;
+	
+	}
+	public Integer getlatestaddress() {
+		Integer col = em.createQuery("select max(a.id) from Address a", Integer.class).getSingleResult();
+		
+		return col;
+		
 	}
 }

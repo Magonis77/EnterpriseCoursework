@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -13,30 +12,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.BranchDTO;
-import dao.CustomerDTO;
 import dao.EmployeeDTO;
-import dao.adminDTO;
+import models.Collection;
+import models.CollectionItem;
+import models.Crate;
+import models.Itemslist;
 import models.Order;
 
 /**
- * Servlet implementation class BranchServlet
+ * Servlet implementation class SeeItemsServlet
  */
-@WebServlet("/BranchServlet")
-public class BranchServlet extends HttpServlet {
+@WebServlet("/SeeItemsServlet")
+public class SeeItemsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	private CustomerDTO crDTO;
-	@EJB
-	private BranchDTO bDTO;
-	@EJB
 	private EmployeeDTO EDTO;
-	@EJB
-	private adminDTO aDTO;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BranchServlet() {
+    public SeeItemsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,45 +39,26 @@ public class BranchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String param_action = request.getParameter("action");
-		String tableStr = new String();
+		String code = (String) request.getParameter("code");
+		int CollectionNumber = Integer.parseInt(code);
+		List<CollectionItem> itemslistcolection = EDTO.getItemsList(CollectionNumber);
+		if(itemslistcolection != null) {
+		HttpSession session = request.getSession();
+		session.setAttribute("itemslist", itemslistcolection);
 		
-		switch(param_action) {
-		case "GetOrders": {
-			List<Order> orderlist = bDTO.allProccessOrders();
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/CollectionItemsListView.jsp");
+		dispatcher.forward(request, response);
+		}
+		else {
+			List<Itemslist> itemslistcrate = EDTO.getcrateItemsList(CollectionNumber);
 			HttpSession session = request.getSession();
-			session.setAttribute("orderlist", orderlist);
+			session.setAttribute("itemslist", itemslistcrate);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/BranchOrderList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/CollectionItemsListView.jsp");
 			dispatcher.forward(request, response);
 		}
-		break;
-		case "revieworder":
-		{
-			
-		}
-		break;
-		case "sendorder":{
-			
-			
-		}
-		break;
-		default:
-			break;
-		}
-		response.setContentType("text/html;charset=UTF-8");
 		
-		PrintWriter out = response.getWriter();
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title> Packfords Storage company Prototype </title>");
-		out.println("</head>");
 		
-		out.println("<body>");
-		out.println(tableStr);
-		out.println("</body>");
-		out.println("</html>");
-		out.close();
 	}
 
 	/**

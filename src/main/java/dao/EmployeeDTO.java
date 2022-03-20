@@ -9,9 +9,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import models.Client;
+import models.Collection;
+import models.CollectionItem;
 import models.Crate;
 import models.Customerusage;
 import models.Invoice;
+import models.Itemslist;
 import models.Order;
 import models.Warehouse;
 
@@ -105,5 +108,28 @@ public List<Customerusage> allCustUsage() {
 		List<Order> listOrders = em.createNamedQuery("Order.findAll", Order.class).getResultList();
 		return listOrders;
 	}
-
+	public List<CollectionItem> getItemsList(int collectionNumber) {
+		
+		List<CollectionItem> CollectionItem = em.createNamedQuery("CollectionItem.findallitemsbycollectionID", CollectionItem.class).setParameter("id", collectionNumber).getResultList();
+		
+		
+		return CollectionItem;
+	}
+	public List<Itemslist> getcrateItemsList(int collectionNumber) {
+		Collection c = this.getcratefromcollection(collectionNumber);
+		int i = c.getCrates().get(0).getId();
+		System.out.print(i);
+	 List<Itemslist> itemslist =  em.createNamedQuery("Itemslist.findallitemsbycrateID", Itemslist.class)
+				.setParameter("id", i).getResultList();
+		System.out.print(itemslist);
+		return itemslist;
+	}
+	public Collection getcratefromcollection(int collectionNumber) {
+		Collection crate= em.createNamedQuery("Collection.findcratebycollectionID", Collection.class)
+				.setParameter("id", collectionNumber)
+				.getSingleResult();
+		
+		return crate;
+	}
+	
 }
