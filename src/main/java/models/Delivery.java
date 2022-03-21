@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,7 +12,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Delivery.findAll", query="SELECT d FROM Delivery d")
+@NamedQueries(
+		{
+			@NamedQuery(name="Delivery.findAll", query="SELECT d FROM Delivery d"),
+		})
+
 public class Delivery implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +26,7 @@ public class Delivery implements Serializable {
 
 	private String date;
 
-	private String delivery_Address;
+	private String status;
 
 	private String frequency;
 
@@ -60,6 +66,7 @@ public class Delivery implements Serializable {
 	private List<Deliveryitem> deliveryitems;
 
 	public Delivery() {
+	this.crates = new ArrayList<Crate>();
 	}
 
 	public int getId() {
@@ -78,12 +85,12 @@ public class Delivery implements Serializable {
 		this.date = date;
 	}
 
-	public String getDelivery_Address() {
-		return this.delivery_Address;
+	public String getStatus() {
+		return this.status;
 	}
 
-	public void setDelivery_Address(String delivery_Address) {
-		this.delivery_Address = delivery_Address;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getFrequency() {

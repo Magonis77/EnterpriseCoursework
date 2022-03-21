@@ -48,13 +48,13 @@ public class CollectionDTO {
 		
 	}
 
-	public void createCollection(String date, String time, String address, String Frequency, int clientID) {
+	public void createCollection(String date, String time, String Frequency, int clientID) {
 		
 		Collection c = new Collection();
 		Client client = em.find(Client.class, clientID);
 		c.setDate(date);
 		c.setTime(time);
-		c.setCollection_Address(address);
+		c.setStatus("In Progress");
 		c.setJourney("Not set yet");
 		c.setFrequency(Frequency);
 		c.setClient(client);
@@ -121,6 +121,68 @@ public class CollectionDTO {
 	public List<Collection> allCollections() {
 		List<Collection> Collectionlist = em.createNamedQuery("Collection.findAll", Collection.class).getResultList();
 		return Collectionlist;
+	}
+
+	public void createCollectioncrate(String date, String time, String frequency, int clientID) {
+		Collection c = new Collection();
+		Client client = em.find(Client.class, clientID);
+		c.setDate(date);
+		c.setTime(time);
+		c.setStatus("Existing Crate collection In Progress");
+		c.setJourney("Not set yet");
+		c.setFrequency(frequency);
+		c.setClient(client);
+		Client cl = em.find(Client.class, clientID);
+		
+		int TimesCollectionMade = cl.getCustomerusages().get(0).getTimes_collection_made();
+		int Times = TimesCollectionMade +1;
+		cl.getCustomerusages().get(0).setTimes_collection_made(Times);
+		
+		em.persist(c);
+		em.persist(cl);
+		
+	}
+
+	public void createCollectionItems(String date, String time, String frequency, int clientID) {
+		Collection c = new Collection();
+		Client client = em.find(Client.class, clientID);
+		c.setDate(date);
+		c.setTime(time);
+		c.setStatus("Item collection In Progress");
+		c.setJourney("Not set yet");
+		c.setFrequency(frequency);
+		c.setClient(client);
+		Client cl = em.find(Client.class, clientID);
+		
+		int TimesCollectionMade = cl.getCustomerusages().get(0).getTimes_collection_made();
+		int Times = TimesCollectionMade +1;
+		cl.getCustomerusages().get(0).setTimes_collection_made(Times);
+		
+		em.persist(c);
+		em.persist(cl);
+		
+		
+	}
+
+	public void createCollectionnewcrate(String date, String time, String frequency, int clientID) {
+		Collection c = new Collection();
+		Client client = em.find(Client.class, clientID);
+		c.setDate(date);
+		c.setTime(time);
+		c.setStatus("New Crate collection In Progress");
+		c.setJourney("Not set yet");
+		c.setFrequency(frequency);
+		c.setClient(client);
+		Client cl = em.find(Client.class, clientID);
+		
+		int TimesCollectionMade = cl.getCustomerusages().get(0).getTimes_collection_made();
+		int Times = TimesCollectionMade +1;
+		cl.getCustomerusages().get(0).setTimes_collection_made(Times);
+		
+		em.persist(c);
+		em.persist(cl);
+		
+		
 	}
 
 }

@@ -28,8 +28,8 @@
           <th>Date</th>
           <th>Time</th>
           <th>Frequency</th>
+          <th>Status</th>
           <th>Journey</th>
-          <th>Items</th>
           <tr>
        </tr>
           <tr>
@@ -48,10 +48,8 @@
              <td>${collection.date}</td>
              <td>${collection.time}</td>
              <td>${collection.frequency}</td>
+             <td>${collection.status}</td>
              <td>${collection.journey}</td>
-              <td>
-                <a href="SeeItemsServlet?code=${collection.id}">Show Items</a>
-             </td>
           </tr>
        </c:forEach>
     </table>

@@ -183,15 +183,6 @@ public class CustomerServlet extends HttpServlet {
 			
 		}
 		break;
-		case "ordercollection":
-		{
-			
-		}
-		break;
-		case "orderdelivery":{
-			
-			
-		}
 		case "GetClient": {
 			List<Client> clientlist = crDTO.allClients();
 			

@@ -13,7 +13,6 @@
  Client ID :<input type = "text" name = "ClientID"></br>
          Preferred Collection Date:<input type = "Date" name = "CollectionDate"></br>
          Preferred Collection time:<input type = "Time" name = "CollectionTime"></br>
-         Address:<input type = "text" name = "Collectionaddress"></br>
          Frequency :<input type = "text" name = "Frequency"></br>
          For frequency please write if you need to have it collected every week or month or it is one time.</br>
          For example: One time for one time collection.
@@ -27,18 +26,16 @@
     	  RequestDispatcher rd = request.getRequestDispatcher("CollectionServlet?action=CollectItems");
     		request.setAttribute("CollectionDate", request.getParameter("CollectionDate"));
     		request.setAttribute("CollectionTime", request.getParameter("CollectionTime"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Collectionaddress"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Frequency"));
-    		request.setAttribute("Collectionaddress", request.getParameter("ClientID"));
+    		request.setAttribute("Frequency", request.getParameter("Frequency"));
+    		request.setAttribute("ClientID", request.getParameter("ClientID"));
     		rd.forward(request, response);
 
       } else if (request.getParameter("crate") != null) {
     	  RequestDispatcher rd = request.getRequestDispatcher("CollectionServlet?action=Collectcrate");
     		request.setAttribute("CollectionDate", request.getParameter("CollectionDate"));
     		request.setAttribute("CollectionTime", request.getParameter("CollectionTime"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Collectionaddress"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Frequency"));
-    		request.setAttribute("Collectionaddress", request.getParameter("ClientID"));
+    		request.setAttribute("Frequency", request.getParameter("Frequency"));
+    		request.setAttribute("ClientID", request.getParameter("ClientID"));
     		rd.forward(request, response);
       }
       %>

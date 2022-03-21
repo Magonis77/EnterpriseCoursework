@@ -30,7 +30,6 @@
 		<br>
 	 Collection Date: <input type = "text" name="CollectionDate" value =${CollectionDate} readonly/></br>
 	  Collection Time: <input type = "text" name="CollectionTime" value =${CollectionTime} readonly/></br>
-	   Collection Address: <input type = "text" name="Collectionaddress" value =${Collectionaddress} readonly/></br>
 	    Frequency: <input type = "text" name="Frequency" value =${Frequency} readonly/></br>
          <br />
          <input type = "submit" name="existing"  value = "Select" /></br>
@@ -45,19 +44,17 @@
     		request.setAttribute("CollectionDate", request.getParameter("CollectionDate"));
     		request.setAttribute("cbxCrate", request.getParameter("cbxCrate"));
     		request.setAttribute("CollectionTime", request.getParameter("CollectionTime"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Collectionaddress"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Frequency"));
-    		request.setAttribute("Collectionaddress", request.getParameter("ClientID"));
+    		request.setAttribute("Frequency", request.getParameter("Frequency"));
+    		request.setAttribute("ClientID", request.getParameter("ClientID"));
     		rd.forward(request, response);
 
       } else if (request.getParameter("Newcrate") != null) {
     	  RequestDispatcher rd = request.getRequestDispatcher("CollectionServlet?action=Newcrate");
     		request.setAttribute("CollectionDate", request.getParameter("CollectionDate"));
     		request.setAttribute("CollectionTime", request.getParameter("CollectionTime"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Collectionaddress"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Frequency"));
-    		request.setAttribute("Collectionaddress", request.getParameter("ClientID"));
-    		request.setAttribute("Collectionaddress", request.getParameter("Itemtype"));
+    		request.setAttribute("Frequency", request.getParameter("Frequency"));
+    		request.setAttribute("ClientID", request.getParameter("ClientID"));
+    		request.setAttribute("Itemtype", request.getParameter("Itemtype"));
     		rd.forward(request, response);
       }
       %>

@@ -15,8 +15,7 @@ import java.util.List;
 @NamedQueries(
 		{
 			@NamedQuery(name="Itemslist.findAll", query="SELECT i FROM Itemslist i"),
-			@NamedQuery(name="Itemslist.findallitemsbycrateID", query="Select i from Itemslist i join fetch i.crates Where i.id=:id")
-
+			@NamedQuery(name="Itemslist.findallitemsbycrateID", query="SELECT i FROM Itemslist i join i.crates c Where c.id=:id")
 		}
 		)
 

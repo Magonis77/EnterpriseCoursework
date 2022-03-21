@@ -16,8 +16,8 @@ import java.util.List;
 		{
 			@NamedQuery(name="Collection.findAll", query="SELECT c FROM Collection c"),
 			@NamedQuery(name="Collection.findlatestaddedcollection", query="SELECT max(c.id) FROM Collection c"),
-			@NamedQuery(name="Collection.findallitems", query="SELECT c FROM Collection c join fetch c.collectionItems Where c.id=:id "),
-			@NamedQuery(name="Collection.findcratebycollectionID", query="SELECT c FROM Collection c join fetch c.crates Where c.id=:id ")
+			@NamedQuery(name="Collection.findallitems", query="SELECT c FROM Collection c join fetch c.collectionItems Where c.id=:id"),
+			@NamedQuery(name="Collection.findcratebycollectionID", query="SELECT c FROM Collection c join fetch c.crates Where c.id=:id")
 
 
 		}
@@ -31,7 +31,7 @@ public class Collection implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private String collection_Address;
+	private String status;
 
 	private String date;
 
@@ -85,12 +85,12 @@ public class Collection implements Serializable {
 		this.id = id;
 	}
 
-	public String getCollection_Address() {
-		return this.collection_Address;
+	public String getStatus() {
+		return this.status;
 	}
 
-	public void setCollection_Address(String collection_Address) {
-		this.collection_Address = collection_Address;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getDate() {

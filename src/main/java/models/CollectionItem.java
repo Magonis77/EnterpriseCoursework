@@ -17,7 +17,7 @@ import java.util.List;
 @NamedQueries(
 		{
 			@NamedQuery(name="CollectionItem.findAll", query="SELECT c FROM CollectionItem c"),
-			@NamedQuery(name="CollectionItem.findallitemsbycollectionID", query = "Select c from CollectionItem c Where c.collections=:id")
+			@NamedQuery(name="CollectionItem.findallitemsbycollectionID", query = "Select c from CollectionItem c join c.collections co Where co.id=:id")
 		})
 
 

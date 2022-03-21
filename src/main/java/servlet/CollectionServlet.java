@@ -60,7 +60,7 @@ public class CollectionServlet extends HttpServlet {
 			String Frequency = request.getParameter("Frequency");
 			String Client = request.getParameter("ClientID");
 			int ClientID = Integer.parseInt(Client);
-			cDTO.createCollection(date, Time, Address, Frequency, ClientID);
+			cDTO.createCollectionItems(date, Time, Frequency, ClientID);
 			int i = cDTO.getlatestcollectionadd();
 				HttpSession session = request.getSession();
 				session.setAttribute("Address", Address);
@@ -76,7 +76,6 @@ public class CollectionServlet extends HttpServlet {
 		{
 			String date = request.getParameter("CollectionDate");
 			String Time = request.getParameter("CollectionTime");
-			String Address = request.getParameter("Collectionaddress");
 			String Frequency = request.getParameter("Frequency");
 			String Client = request.getParameter("ClientID");
 			int ClientID = Integer.parseInt(Client);
@@ -84,7 +83,6 @@ public class CollectionServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("CollectionDate",date);
 				session.setAttribute("CollectionTime",Time);
-				session.setAttribute("Collectionaddress",Address);
 				session.setAttribute("Frequency",Frequency);
 				session.setAttribute("allcrates", allcrates);
 				session.setAttribute("ClientID", ClientID);
@@ -97,7 +95,6 @@ public class CollectionServlet extends HttpServlet {
 		break;
 		case "AddItem":{
 			String Item = request.getParameter("Item");
-			String Address = request.getParameter( "Address");
 			String Coll = request.getParameter("collectionID");
 			int CollectionID = Integer.parseInt(Coll);
 			cDTO.AddItem(Item, CollectionID);
@@ -111,13 +108,12 @@ public class CollectionServlet extends HttpServlet {
 		case "ExistingCrate" :{
 			String date = request.getParameter("CollectionDate");
 			String Time = request.getParameter("CollectionTime");
-			String Address = request.getParameter("Collectionaddress");
 			String Frequency = request.getParameter("Frequency");
 			String Client = request.getParameter("ClientID");
 			int ClientID = Integer.parseInt(Client);
 			String cbcrate = request.getParameter("cbxCrate");
 			int Crate = Integer.parseInt(cbcrate);
-			cDTO.createCollection(date, Time, Address, Frequency, ClientID);
+			cDTO.createCollectioncrate(date, Time, Frequency, ClientID);
 			cDTO.assigncratecollection(ClientID, Crate, date);
 			tableStr += "<a href='index.html'>Home</a><br/>";
 			
@@ -127,12 +123,11 @@ public class CollectionServlet extends HttpServlet {
 		case"Newcrate": {
 			String date = request.getParameter("CollectionDate");
 			String Time = request.getParameter("CollectionTime");
-			String Address = request.getParameter("Collectionaddress");
 			String Frequency = request.getParameter("Frequency");
 			String ItemType = request.getParameter("Itemtype");
 			String Client = request.getParameter("ClientID");
 			int ClientID = Integer.parseInt(Client);
-			cDTO.createCollection(date, Time, Address, Frequency, ClientID);
+			cDTO.createCollectionnewcrate(date, Time, Frequency, ClientID);
 			cDTO.createCrate(ClientID, ItemType, date);
 			List<Crate> cratelist = crDTO.allCratesbyClientID(ClientID);
 			HttpSession session = request.getSession();

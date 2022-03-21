@@ -58,16 +58,6 @@ public class BranchServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		break;
-		case "revieworder":
-		{
-			
-		}
-		break;
-		case "sendorder":{
-			
-			
-		}
-		break;
 		default:
 			break;
 		}
