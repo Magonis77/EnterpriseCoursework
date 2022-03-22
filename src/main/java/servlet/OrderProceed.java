@@ -26,6 +26,7 @@ public class OrderProceed extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
+    
     public OrderProceed() {
         super();
         // TODO Auto-generated constructor stub

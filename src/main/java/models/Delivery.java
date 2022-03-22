@@ -15,6 +15,7 @@ import java.util.List;
 @NamedQueries(
 		{
 			@NamedQuery(name="Delivery.findAll", query="SELECT d FROM Delivery d"),
+			@NamedQuery(name="Delivery.findallcrates", query="SELECT d FROM Delivery d")
 		})
 
 public class Delivery implements Serializable {

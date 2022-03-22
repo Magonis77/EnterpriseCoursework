@@ -111,7 +111,6 @@ public class DeliveryServlet extends HttpServlet {
 	}
 	break;
 	case "ShowallDeliveries":{
-		List<Delivery> cratesdelivery = dDTO.getalldeliverycrates();
 		List<Delivery> deliverylist = dDTO.allDeliveries();
 		HttpSession session = request.getSession();
 		session.setAttribute("deliverylist", deliverylist);
