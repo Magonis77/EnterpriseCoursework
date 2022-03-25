@@ -49,6 +49,7 @@ public class BranchServlet extends HttpServlet {
 		String tableStr = new String();
 		
 		switch(param_action) {
+		//gets all orders from DTO and adds them to session that forwards to next UI(jsp file)
 		case "GetOrders": {
 			List<Order> orderlist = bDTO.allProccessOrders();
 			HttpSession session = request.getSession();

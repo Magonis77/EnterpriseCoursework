@@ -88,6 +88,7 @@ public List<Customerusage> allCustUsage() {
 		   
     	return listCrate;
 	}
+	//gets all processed orders list.
 	public List<Order> allProccessedOrders() {
 		String Status = "Crate Ordered";
     	List<Order> listOrders = em.createNamedQuery("Order.findOrderByStatus", Order.class)
@@ -95,6 +96,7 @@ public List<Customerusage> allCustUsage() {
 				.getResultList();
 		return listOrders;
 	}
+	//accepts the order by writing in status of the order that it is accepted
 	public void AcceptOrder(int orderNumber) {
 		Order o = em.find(Order.class, orderNumber);
 		
@@ -103,11 +105,14 @@ public List<Customerusage> allCustUsage() {
 		em.persist(o);
 		
 	}
+//gets all orders from database
+	
 	public List<Order> allOrders() {
 
 		List<Order> listOrders = em.createNamedQuery("Order.findAll", Order.class).getResultList();
 		return listOrders;
 	}
+	//gets all items by collection id
 	public List<CollectionItem> getItemsList(int collectionNumber) {
 		
 		List<CollectionItem> CollectionItem = em.createNamedQuery("CollectionItem.findallitemsbycollectionID", CollectionItem.class).setParameter("id", collectionNumber).getResultList();
@@ -115,6 +120,7 @@ public List<Customerusage> allCustUsage() {
 		
 		return CollectionItem;
 	}
+	//gets crate items list by crate id
 	public List<Itemslist> getcrateItemsList(int collectionNumber) {
 		Collection c = this.getcratefromcollection(collectionNumber);
 		int i = c.getCrates().get(0).getId();
@@ -124,6 +130,8 @@ public List<Customerusage> allCustUsage() {
 		System.out.print(itemslist);
 		return itemslist;
 	}
+	
+	//gets crate from collection id
 	public Collection getcratefromcollection(int collectionNumber) {
 		Collection crate= em.createNamedQuery("Collection.findcratebycollectionID", Collection.class)
 				.setParameter("id", collectionNumber)

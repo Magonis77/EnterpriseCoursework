@@ -39,6 +39,7 @@ public class SeeItemsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//gets the id of the crate and gets the itemslist.
 		String code = (String) request.getParameter("code");
 		int CollectionNumber = Integer.parseInt(code);
 		List<CollectionItem> itemslistcolection = EDTO.getItemsList(CollectionNumber);

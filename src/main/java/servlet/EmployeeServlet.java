@@ -152,6 +152,7 @@ public class EmployeeServlet extends HttpServlet {
 	    EDTO.AssignShelf(CrateID,WarehouseID,Shelf);
 	}
 	break;
+	//gets all processed orders and sent to the Orderlist to display all.
 	case "GetProccessedOrders": {
 		List<Order> orderlist = EDTO.allProccessedOrders();
 		HttpSession session = request.getSession();
@@ -161,6 +162,7 @@ public class EmployeeServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 	break;
+	//gets all orders and sends to the jsp file to display.
 	case "AllOrders": {
 		List<Order> orderlist = EDTO.allOrders();
 		HttpSession session = request.getSession();

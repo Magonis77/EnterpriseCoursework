@@ -31,6 +31,7 @@ public class BranchDTO {
     public BranchDTO() {
         // TODO Auto-generated constructor stub
     }
+    //gets all orders to process from database.
     public List<Order> allProccessOrders()
     {
     	String Status = "In Process";
@@ -40,6 +41,8 @@ public class BranchDTO {
  
     	return listOrders;
     }
+    
+    //sets orders status as crate ordered = processed order.
 	public void processOrder(int orderNumber) {
 		
 		Order o = em.find(Order.class, orderNumber);

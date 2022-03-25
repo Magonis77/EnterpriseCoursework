@@ -35,6 +35,7 @@ public class OrderAccepted extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//employee accepts order then the order number is gained from jsp and sent to DTO to process order.
 		String code = (String) request.getParameter("code");
 		int OrderNumber = Integer.parseInt(code);
 		

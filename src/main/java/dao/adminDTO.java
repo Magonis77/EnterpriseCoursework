@@ -24,7 +24,7 @@ public class adminDTO {
     public adminDTO() {
         // TODO Auto-generated constructor stub
     }
-    //gets the list of all employees from database
+    //gets the list of all employees from database (models employee)
     public List<Employee> allEmployee()
     {
     	List<Employee> listEmployee = em.createNamedQuery("Employee.findAll", Employee.class).getResultList();

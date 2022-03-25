@@ -28,9 +28,11 @@ public class DeliveryDTO {
     public DeliveryDTO() {
         
     }
-
+//creates delivery crate by writing data into database
 	public void createDeliveycrate(String date, String time, String frequency, int clientID) {
+		//creates new delivery d
 		Delivery d = new Delivery();
+		//defines client by finding client by the id provided
 		Client client = em.find(Client.class, clientID);
 		d.setDate(date);
 		d.setTime(time);
@@ -48,7 +50,7 @@ public class DeliveryDTO {
 		em.persist(cl);
 		
 	}
-
+//assigns crate delivery(many to many relationship)
 	public void assigncratedelivery(int clientID, int crate, String date) {
 		int delivery = this.getlatestdeliveryadd();
 		Delivery d = em.find(Delivery.class, delivery);
@@ -61,13 +63,13 @@ public class DeliveryDTO {
 		em.persist(cr);
 		em.persist(d);
 	}
-
+//gets the ;atest added delivery right after the delivery is made, for now it serves the purpose to be able to track the latest delivery inside the database.
 	public int getlatestdeliveryadd() {
 		Integer col = em.createQuery("select max(d.id) from Delivery d", Integer.class).getSingleResult();
 		
 		return col;
 	}
-
+//creates the delivery for the specific items when the specific items delivery is requested by the client.
 	public void createDeliveyspecificitems(String date, String time, String frequency, int clientID) {
 		Delivery d = new Delivery();
 		Client client = em.find(Client.class, clientID);
@@ -86,13 +88,13 @@ public class DeliveryDTO {
 		em.persist(d);
 		em.persist(cl);
 	}
-
+//gets items by crate id.
 	public List<Itemslist> getItemsbyCrateID(int crate) {
 		
 		 List<Itemslist> itemslist = em.createNamedQuery("Itemslist.findallitemsbycrateID", Itemslist.class).setParameter("id", crate).getResultList();
 		return itemslist;
 	}
-
+//adds delivery items
 	public void adddeliveryitems(int itemID, int deliveryID) {
 		
 		Itemslist it = em.find(Itemslist.class, itemID);
@@ -110,12 +112,12 @@ public class DeliveryDTO {
 
 		
 	}
-
+//gets all deliveries from database
 	public List<Delivery> allDeliveries() {
 		List<Delivery> Deliverylist = em.createNamedQuery("Delivery.findAll", Delivery.class).getResultList();
 		return Deliverylist;
 	}
-
+//gets all delivery crates from database
 	public List<Delivery> getalldeliverycrates() {
 		List<Delivery> deliverylist = em.createNamedQuery("Delivery.getallcrates", Delivery.class).getResultList();
 		return deliverylist;

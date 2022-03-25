@@ -135,7 +135,7 @@ public class CustomerDTO {
 		
 		
 	}
-	
+	//gets all crates owned by the client by client ID.
 	public List<Crate> allCratesbyClientID(int clientID) {
 		List<Crate> cratelist = em.createNamedQuery("Crate.findCrateByClientID", Crate.class)
 		.setParameter("id", clientID)
@@ -143,6 +143,8 @@ public class CustomerDTO {
 		
 		return cratelist;
 	}
+	
+	//gets all customer orders
 	public List<Order> allCustomerOrders(int clientID) {
     	List<Order> listOrders = em.createNamedQuery("Order.findOrderByClient", Order.class)
     			.setParameter("id", clientID)
@@ -150,6 +152,7 @@ public class CustomerDTO {
 		return listOrders;
 	
 	}
+	//gets latest address that was added while client was created.
 	public Integer getlatestaddress() {
 		Integer col = em.createQuery("select max(a.id) from Address a", Integer.class).getSingleResult();
 		

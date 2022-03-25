@@ -52,6 +52,7 @@ public class CollectionServlet extends HttpServlet {
 		String tableStr = new String();
 		
 		switch(param_action) {
+		//gets input from jsp and sends to DTO to create the collectionitems request and then redirects to JSP to enter the items to be collected.
 		case "CollectItems": {
 
 			String date = request.getParameter("CollectionDate");
@@ -72,6 +73,7 @@ public class CollectionServlet extends HttpServlet {
 			
 		}
 		break;
+		//gets input from collection request of crate, sends command to DTO to get client crates and then redirects to screen that allows user to select the specific crate to deliver.
 		case "Collectcrate":
 		{
 			String date = request.getParameter("CollectionDate");
@@ -93,6 +95,7 @@ public class CollectionServlet extends HttpServlet {
 			
 		}
 		break;
+		//gets item input from JSP and sends to DTO to add item to the collection items list then redirects to add another item if the user wants.
 		case "AddItem":{
 			String Item = request.getParameter("Item");
 			String Coll = request.getParameter("collectionID");
@@ -105,6 +108,7 @@ public class CollectionServlet extends HttpServlet {
 			
 		}
 		break;
+		//gets input from jsp then sends to DTO to create and assign collection request of existing crate
 		case "ExistingCrate" :{
 			String date = request.getParameter("CollectionDate");
 			String Time = request.getParameter("CollectionTime");
@@ -119,7 +123,7 @@ public class CollectionServlet extends HttpServlet {
 			
 		}
 		break;
-		
+		//gets input from jsp then sends info to DTO to create collection of new crate and creating the crate itself. then forwards client to UI of entering items that will be in the new crate
 		case"Newcrate": {
 			String date = request.getParameter("CollectionDate");
 			String Time = request.getParameter("CollectionTime");
@@ -139,6 +143,7 @@ public class CollectionServlet extends HttpServlet {
 			
 		}
 		break;
+		//gets all collections from DTO and then sends to the JSP where it will be displayed in a table. 
 		case "allCollections":{
 			List<Collection> collectionlist = cDTO.allCollections();
 			HttpSession session = request.getSession();

@@ -47,7 +47,7 @@ public class DeliveryServlet extends HttpServlet {
 		String tableStr = new String();
 		
 		switch(param_action) {
-		//gets customer usage list from dto and sends to the jsp.
+		//gets client crates by the client ID from DTO and then sends to the jsp.
 	case "getclientcrates" :
 	{
 			String date = request.getParameter("DeliveryDate");
@@ -67,6 +67,7 @@ public class DeliveryServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 	}
 	break;
+	//gets the action wholecrate meaning that the delivery needs to be of the whole create so sends info to DTO to create the delivery request.
 	case "WholeCrate" :
 	{
 		String date = request.getParameter("DeliveryDate");
@@ -81,6 +82,7 @@ public class DeliveryServlet extends HttpServlet {
 		tableStr += "<a href='index.html'>Home</a><br/>";
 	}
 	break;
+	//makes the delivery request of the specific items and sends the client to the UI(jsp) where he will be able to select what items to deliver.
 	case "SpecificItems" :
 	{
 		String date = request.getParameter("DeliveryDate");
@@ -103,6 +105,7 @@ public class DeliveryServlet extends HttpServlet {
 		tableStr += "<a href='index.html'>Home</a><br/>";
 	}
 	break;
+	//adds the selected item from the UI to the delivery request.
 	case "deliverthisitem":{
 		String code = (String) request.getParameter("code");
 		int ItemID = Integer.parseInt(code);
@@ -110,6 +113,7 @@ public class DeliveryServlet extends HttpServlet {
 		dDTO.adddeliveryitems(ItemID, DeliveryID);
 	}
 	break;
+	//shows all deliveries (gets the deliveries from DTO and sends them to the jsp where they will be added to the table one by one.
 	case "ShowallDeliveries":{
 		List<Delivery> deliverylist = dDTO.allDeliveries();
 		HttpSession session = request.getSession();

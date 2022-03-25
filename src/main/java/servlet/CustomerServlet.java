@@ -183,6 +183,7 @@ public class CustomerServlet extends HttpServlet {
 			
 		}
 		break;
+		//gets all clients from DTO, adds them to the list and sends to the jsp.
 		case "GetClient": {
 			List<Client> clientlist = crDTO.allClients();
 			
@@ -193,6 +194,7 @@ public class CustomerServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		break;
+		//gets customer orderlist by the Client ID from DTO and sends to the jsp to display in table.
 		case "CustOrdersList":{
 			String idstring = request.getParameter("ClientID");
 				int ClientID = Integer.parseInt(idstring);

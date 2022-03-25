@@ -35,6 +35,7 @@ public class CollectionDTO {
         // TODO Auto-generated constructor stub
     }
 
+    //adds items to collection Items and links them to the collection.
 	public void AddItem(String item, int collectionID) {
 
 		CollectionItem ci = new CollectionItem();
@@ -47,7 +48,7 @@ public class CollectionDTO {
 	
 		
 	}
-
+//creates collection request and adds customer usage +1 to times collection made.
 	public void createCollection(String date, String time, String Frequency, int clientID) {
 		
 		Collection c = new Collection();
@@ -68,21 +69,21 @@ public class CollectionDTO {
 		em.persist(cl);
 		
 	}
-
+//gets customer usage by client ID.
 	private Customerusage getCustomerUsageByClientID(int clientID) {
 		Customerusage queryResult = em.createNamedQuery("Customerusage.findusagebyclientID", Customerusage.class)
 				.setParameter("id", clientID)
 				.getSingleResult();
 		return queryResult;
 	}
-
+//gets latest collection request ID for other uses.
 	public Integer getlatestcollectionadd() {
 		Integer col = em.createQuery("select max(c.id) from Collection c", Integer.class).getSingleResult();
 		
 		return col;
 		
 	}
-
+//assigns a crate to the collection when the whole crate is requested to be collected.
 	public void assigncratecollection(int clientID, int crate, String date) {
 		int collection = this.getlatestcollectionadd();
 		Collection c = em.find(Collection.class, collection);
@@ -95,7 +96,7 @@ public class CollectionDTO {
 		em.persist(cr);
 		em.persist(c);
 	}
-
+//creates new crate in case the customer wants the items be collected and stored in the new crate.
 	public void createCrate(int clientID, String itemType, String date) {
 		Crate c = new Crate();
 		int collection = this.getlatestcollectionadd();
@@ -117,12 +118,12 @@ public class CollectionDTO {
 	
 	
 	}
-
+//gets all collections from the database.
 	public List<Collection> allCollections() {
 		List<Collection> Collectionlist = em.createNamedQuery("Collection.findAll", Collection.class).getResultList();
 		return Collectionlist;
 	}
-
+//creates collection request when client wants existing crate to be collected.
 	public void createCollectioncrate(String date, String time, String frequency, int clientID) {
 		Collection c = new Collection();
 		Client client = em.find(Client.class, clientID);
@@ -142,7 +143,7 @@ public class CollectionDTO {
 		em.persist(cl);
 		
 	}
-
+//creates collection request when Client requests specific item collection.
 	public void createCollectionItems(String date, String time, String frequency, int clientID) {
 		Collection c = new Collection();
 		Client client = em.find(Client.class, clientID);
@@ -163,7 +164,7 @@ public class CollectionDTO {
 		
 		
 	}
-
+ //Creates collection request when client wants new crate to be collected.
 	public void createCollectionnewcrate(String date, String time, String frequency, int clientID) {
 		Collection c = new Collection();
 		Client client = em.find(Client.class, clientID);

@@ -36,6 +36,7 @@ public class OrderProceed extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//gets Order number and sends to DTO to proceed the order and send to the employees to mark as done when crate is created.
 		String code = (String) request.getParameter("code");
 		int OrderNumber = Integer.parseInt(code);
 		
