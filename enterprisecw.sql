@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 21, 2022 at 09:40 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Host: localhost
+-- Generation Time: Mar 30, 2022 at 03:51 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,7 +50,8 @@ INSERT INTO `address` (`ID`, `AddressLine1`, `AddressLine2`, `AddressLine3`, `Ad
 (7, 'Ausekla St.', '2-5', '', '', 'LV-1010', 'Riga'),
 (8, 'Lucy St.', 'House nr 12', '', '', 'SE10 8EJ', 'London'),
 (9, 'Ausekla St.', '2-5', '', '', 'LV-1010', 'London'),
-(10, 'Ausekla St.', '2-5', '', '', 'LV-1010', 'London');
+(10, 'Ausekla St.', '2-5', '', '', 'LV-1010', 'London'),
+(11, 'Kalingrad st', '', '', '', '23733', 'Kalinengrad');
 
 -- --------------------------------------------------------
 
@@ -104,7 +105,8 @@ CREATE TABLE `client` (
 
 INSERT INTO `client` (`ID`, `FirstName`, `LastName`, `Address_ID`, `Emailaddress`, `PhoneNumber`, `username`, `Password`) VALUES
 (11, 'Daniels', 'Magonis', 8, 'dmagonis77@gmail.com', 29186176, 'DanielsMagonis', ''),
-(12, 'Angelina', 'Raume', 10, 'Angelina121@gmail.com', 2876252, 'AngelinaRaume', '');
+(12, 'Angelina', 'Raume', 10, 'Angelina121@gmail.com', 2876252, 'AngelinaRaume', ''),
+(13, 'Artyom', 'Deg', 11, 'artyom@gmail.com', 2817622, 'ArtyomDeg', '123');
 
 -- --------------------------------------------------------
 
@@ -128,7 +130,11 @@ CREATE TABLE `collection` (
 
 INSERT INTO `collection` (`ID`, `Date`, `Time`, `Status`, `ClientID`, `Journey`, `Frequency`) VALUES
 (38, '2022-03-21', '13:57', '', 11, 'Not set yet', 'One'),
-(39, '2022-03-21', '14:40', '', 11, 'Not set yet', 'Every Week');
+(39, '2022-03-21', '14:40', '', 11, 'Not set yet', 'Every Week'),
+(40, 'readonly/', 'readonly/', 'Existing Crate collection In Progress', 12, 'Not set yet', 'wEEKLY'),
+(41, '', '', 'Item collection In Progress', 11, 'Not set yet', '1'),
+(42, 'readonly/', 'readonly/', 'New Crate collection In Progress', 11, 'Not set yet', '2'),
+(43, '2022-03-31', '11:11', 'Existing Crate collection In Progress', 11, 'Not set yet', '1');
 
 -- --------------------------------------------------------
 
@@ -167,7 +173,10 @@ CREATE TABLE `collection_crate` (
 --
 
 INSERT INTO `collection_crate` (`Collection_ID`, `Crate_ID`) VALUES
-(38, 31);
+(38, 31),
+(40, 33),
+(42, 34),
+(43, 31);
 
 -- --------------------------------------------------------
 
@@ -221,7 +230,12 @@ INSERT INTO `crate` (`ID`, `ClientID`, `Item Type`, `Shelf`, `Status`) VALUES
 (29, 1, 'Socks', 'Not Assigned yet', 'in Transit from client'),
 (30, 1, 'Tshirts', 'Not Assigned yet', 'in Transit from client'),
 (31, 11, 'Electronics', 'Not Assigned Yet', 'in Transit from client'),
-(32, 12, 'Xmas Decoration', 'Not Assigned Yet', 'Created');
+(32, 12, 'Xmas Decoration', 'Not Assigned Yet', 'Created'),
+(33, 12, 'Electronics', 'Not Assigned Yet', 'in Transit from client'),
+(34, 11, 'furniture', 'Not Assigned yet', 'Not collected yet / In transit'),
+(35, 13, 'Clothes', 'Not Assigned Yet', 'Created'),
+(36, 11, 'Tyres', 'Not Assigned Yet', 'Created'),
+(37, 11, 'documents', 'Not Assigned Yet', 'Created');
 
 -- --------------------------------------------------------
 
@@ -250,8 +264,13 @@ INSERT INTO `cratehistory` (`ID`, `CrateID`, `Date_Stored`, `Date_Accessed`) VAL
 (28, 28, '2022-04-27', NULL),
 (29, 30, '2022-03-29', NULL),
 (30, 29, '2022-08-17', NULL),
-(32, 31, '2022-03-21', '2022-03-29'),
-(33, 32, '2022-03-28', NULL);
+(32, 31, '2022-03-31', '2022-03-31'),
+(33, 32, '2022-03-28', NULL),
+(34, 33, 'readonly/', 'readonly/'),
+(35, 34, 'readonly/', NULL),
+(36, 35, '', NULL),
+(37, 36, '2022-03-09', NULL),
+(38, 37, '2022-04-07', NULL);
 
 -- --------------------------------------------------------
 
@@ -271,8 +290,9 @@ CREATE TABLE `customerusage` (
 --
 
 INSERT INTO `customerusage` (`ID`, `Times delivery made`, `Times collection made`, `ClientID`) VALUES
-(17, 133, 3, 11),
-(18, 0, 1, 12);
+(17, 139, 8, 11),
+(18, 1, 3, 12),
+(19, 0, 1, 13);
 
 -- --------------------------------------------------------
 
@@ -298,7 +318,14 @@ INSERT INTO `delivery` (`ID`, `Date`, `Time`, `Status`, `ClientID`, `Journey`, `
 (130, '2022-03-22', '16:38', 'Specific item Delivery In Progress', 11, 'Not recorded yet', 'One'),
 (131, '2022-03-22', '14:38', 'Specific item Delivery In Progress', 11, 'Not recorded yet', 'Every'),
 (132, '2022-03-22', '15:42', 'Specific item Delivery In Progress', 11, 'Not recorded yet', 'One'),
-(133, '2022-03-29', '18:26', 'Existing Crate Delivery In Progress', 11, 'Not recorded yet', 'Daily');
+(133, '2022-03-29', '18:26', 'Existing Crate Delivery In Progress', 11, 'Not recorded yet', 'Daily'),
+(134, 'readonly/', 'readonly/', 'Specific item Delivery In Progress', 12, 'Not recorded yet', 'wekly'),
+(135, 'readonly/', 'readonly/', 'Existing Crate Delivery In Progress', 11, 'Not recorded yet', 'one'),
+(136, 'readonly/', 'readonly/', 'Specific item Delivery In Progress', 11, 'Not recorded yet', 'one'),
+(137, '2022-03-31', '11:11', 'Existing Crate Delivery In Progress', 11, 'Not recorded yet', '1'),
+(138, '2022-03-31', '11:11', 'Specific item Delivery In Progress', 11, 'Not recorded yet', '1'),
+(139, '2022-03-30', '11:12', 'Specific item Delivery In Progress', 11, 'Not recorded yet', '1'),
+(140, '2022-03-31', '11:12', 'Specific item Delivery In Progress', 11, 'Not recorded yet', '1');
 
 -- --------------------------------------------------------
 
@@ -330,7 +357,14 @@ INSERT INTO `delivery_crate` (`Crate_ID`, `Delivery_ID`) VALUES
 (31, 130),
 (31, 131),
 (31, 132),
-(31, 133);
+(31, 133),
+(31, 135),
+(31, 136),
+(31, 137),
+(31, 138),
+(31, 139),
+(31, 140),
+(33, 134);
 
 -- --------------------------------------------------------
 
@@ -401,6 +435,13 @@ CREATE TABLE `invoice` (
   `Status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`ID`, `ClientID`, `Date`, `Amount`, `Status`) VALUES
+(4, 11, '2022-03-30', 400, 'Payed');
+
 -- --------------------------------------------------------
 
 --
@@ -441,7 +482,13 @@ INSERT INTO `itemslist` (`ID`, `Item`) VALUES
 (159, 'Computer'),
 (160, 'Jolka'),
 (161, 'lights'),
-(162, 'Xmas elf');
+(162, 'Xmas elf'),
+(163, 'Television'),
+(164, 'Decoder'),
+(165, 'Computer'),
+(166, 'null'),
+(167, 'testitem'),
+(168, 'papers');
 
 -- --------------------------------------------------------
 
@@ -480,7 +527,13 @@ INSERT INTO `itemslist_crate` (`Item_ID`, `Crate_ID`) VALUES
 (159, 31),
 (160, 32),
 (161, 32),
-(162, 32);
+(162, 32),
+(163, 33),
+(164, 33),
+(165, 33),
+(166, 31),
+(167, 36),
+(168, 37);
 
 -- --------------------------------------------------------
 
@@ -503,22 +556,24 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`Number`, `Date`, `Status`, `ClientID`, `CollectionDate`) VALUES
 (1, '2022-03-10', 'Done', 12, '2022-03-14'),
 (2, '2022-03-10', 'Done', 12, '2022-03-15'),
-(3, '2022-03-10', 'Crate Ordered', 12, '2022-03-14'),
+(3, '2022-03-10', 'Done', 12, '2022-03-14'),
 (4, '2022-03-10', 'Done', 15, '2022-03-24'),
-(5, '2022-03-10', 'Crate Ordered', 1, '2022-03-21'),
-(6, '2022-03-10', 'In Process', 2, '2022-03-30'),
+(5, '2022-03-10', 'Done', 1, '2022-03-21'),
+(6, '2022-03-10', 'Crate Ordered', 2, '2022-03-30'),
 (8, '2022-03-12', 'Done', 3, '2022-03-17'),
 (9, '2022-03-14', 'In Process', 3, '2022-03-08'),
-(10, '2022-03-19', 'Crate Ordered', 4, '2022-03-21'),
+(10, '2022-03-19', 'Done', 4, '2022-03-21'),
 (11, '2022-03-19', 'Done', 1, '2022-03-29'),
-(23, '2022-03-19', 'In Process', 1, '2022-03-21'),
+(23, '2022-03-19', 'Crate Ordered', 1, '2022-03-21'),
 (24, '2022-03-19', 'Crate Ordered', 3, '2022-03-21'),
 (25, '2022-03-19', 'In Process', 3, '2022-03-21'),
 (26, '2022-03-19', 'Crate Ordered', 4, '2022-03-22'),
-(27, '2022-03-19', 'In Process', 9, '2022-03-28'),
-(28, '2022-03-19', 'In Process', 9, '2022-03-30'),
-(29, '2022-03-20', 'In Process', 11, '2022-03-21'),
-(30, '2022-03-20', 'In Process', 12, '2022-03-28');
+(27, '2022-03-19', 'Done', 9, '2022-03-28'),
+(28, '2022-03-19', 'Done', 9, '2022-03-30'),
+(29, '2022-03-20', 'Crate Ordered', 11, '2022-03-21'),
+(30, '2022-03-20', 'In Process', 12, '2022-03-28'),
+(33, '2022-03-30', 'In Process', 11, '2022-03-09'),
+(34, '2022-03-30', 'In Process', 11, '2022-04-07');
 
 -- --------------------------------------------------------
 
@@ -725,7 +780,7 @@ ALTER TABLE `warehouse_crate`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `branch`
@@ -737,13 +792,13 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `collection`
 --
 ALTER TABLE `collection`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `collection_items`
@@ -755,25 +810,25 @@ ALTER TABLE `collection_items`
 -- AUTO_INCREMENT for table `crate`
 --
 ALTER TABLE `crate`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `cratehistory`
 --
 ALTER TABLE `cratehistory`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `customerusage`
 --
 ALTER TABLE `customerusage`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `delivery`
 --
 ALTER TABLE `delivery`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `deliveryitems`
@@ -797,19 +852,19 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `itemslist`
 --
 ALTER TABLE `itemslist`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `Number` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `Number` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `warehouse`

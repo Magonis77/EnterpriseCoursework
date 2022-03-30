@@ -3,9 +3,8 @@
 3. press Admin on mysql
 4. Add the EnterpriseCW.sql file in import.
 5. Open standalone-full.xml file for the wildfly server.
-6. Add following code under the Programming enterprise </datasource>
+6. Add following code under </datasource>
 7. Name the SQL database  - EnterpriseCW
-8. Do the tutorial for program enterprise week 4 "Accessing the DB" to setup the server and make prototype work.
 :
 :
 Add this:
@@ -22,3 +21,6 @@ Add this:
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"/>
                     </validation>
                 </datasource>
+
+
+8. Add mysql connector to the wildfly server and add wildfly server to the build bath of this project.
