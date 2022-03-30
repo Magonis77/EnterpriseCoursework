@@ -8,7 +8,7 @@
 </head>
 <body>
 <a href='index.html'>Home</a><br/>
-<h1>Request Collection:</h1>
+<h1>Request Delivery:</h1>
 <form action="Deliveryorder.jsp" method = "post">
  Client ID :<input type = "text" name = "ClientID"></br>
          Preferred Delivery Date:<input type = "Date" name = "DeliveryDate"></br>

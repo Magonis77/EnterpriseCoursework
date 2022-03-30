@@ -27,8 +27,8 @@
 		</select>
 		<br>
 	 Collection Date: <input type = "text" name="DeliveryDate" value =${DeliveryDate} readonly/></br>
-	  Collection Time: <input type = "text" name="DeliveryTime" value =${DeliveryTime} readonly/></br>
-	    Frequency: <input type = "text" name="Frequency" value =${Frequency} readonly/></br>
+	  Collection Time: <input type = "text" name="DeliveryTime" value =${DeliveryTime} readonly//></br>
+	    Frequency: <input type = "text" name="Frequency" value =${Frequency} readonly /></br>
          	ClientID : <input type = "text" name="ClientID" value =${ClientID} readonly/></br>
          <input type = "submit" name="wholecrate"  value = "Deliver whole Crate" /></br>
          </br>

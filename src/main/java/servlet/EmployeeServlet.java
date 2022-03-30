@@ -30,8 +30,6 @@ public class EmployeeServlet extends HttpServlet {
 	@EJB
 	private CustomerDTO crDTO;
 	@EJB
-	private BranchDTO bDTO;
-	@EJB
 	private EmployeeDTO EDTO;
 	@EJB
 	private adminDTO aDTO; 
