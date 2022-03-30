@@ -46,11 +46,9 @@ public class BranchDTO {
 	public void processOrder(int orderNumber) {
 		
 		Order o = em.find(Order.class, orderNumber);
-		Branch b = new Branch();
 		o.setStatus("Crate Ordered");
 		//b.getOrders().set(orderNumber, o);   Not implemented Yet Error fixing needed
-		
-		em.persist(b);
+	
 		em.persist(o);
 		
 	}

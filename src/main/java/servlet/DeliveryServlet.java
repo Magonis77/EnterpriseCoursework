@@ -111,6 +111,7 @@ public class DeliveryServlet extends HttpServlet {
 		int ItemID = Integer.parseInt(code);
 		int DeliveryID = dDTO.getlatestdeliveryadd();
 		dDTO.adddeliveryitems(ItemID, DeliveryID);
+		tableStr += "<a href='index.html'>Home</a><br/>";
 	}
 	break;
 	//shows all deliveries (gets the deliveries from DTO and sends them to the jsp where they will be added to the table one by one.
